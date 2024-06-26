@@ -1,11 +1,23 @@
+/*
+This CSS file contains styling rules for the layout and appearance of elements 
+within the application. It is likely associated with the main component or 
+layout structure of the web application.
+
+This CSS file is likely imported into the main application component or included
+ as part of a larger stylesheet to apply its styles across the application.
+
+Developers can further extend or modify the styles within this file to suit the 
+design requirements of the application.
+*/
+
+/* Set the height of the html, body, and #root elements to occupy 100% of the viewport height */
+html,
+body,
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  margin: 0; /* Remove any default margin */
 }
 
-.logo {
+/* .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
@@ -33,10 +45,4 @@
   }
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
+ */
