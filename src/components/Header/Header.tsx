@@ -11,13 +11,19 @@ import {
   ListItemText,
 } from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
+import { useTranslation } from "react-i18next";
 
 const Header: React.FC = () => {
+  const { i18n } = useTranslation();
+  const activeLocale = i18n.resolvedLanguage;
+
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
 
-  const [selectedLang, setSelectedLang] = React.useState<string>("pt");
+  const [selectedLang, setSelectedLang] = React.useState<string>(
+    activeLocale ? activeLocale : "en"
+  );
 
   const handleLangButtonClick = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -30,6 +36,7 @@ const Header: React.FC = () => {
   };
 
   const handlLanguageItemClick = (lang: string) => {
+    i18n.changeLanguage(lang);
     setSelectedLang(lang);
   };
 
@@ -100,26 +107,6 @@ const Header: React.FC = () => {
               <List>
                 <ListItem disablePadding>
                   <ListItemButton
-                    onClick={() => handlLanguageItemClick("pt")}
-                    selected={selectedLang === "pt"}
-                  >
-                    <ListItemIcon>
-                      <Avatar
-                        alt="pokemon logo"
-                        src={"src/assets/flags/portugueseFlag.svg"}
-                        sx={{
-                          width: "50%",
-                          height: "50%",
-                          borderRadius: "0",
-                          alignItems: "center",
-                        }}
-                      />
-                    </ListItemIcon>
-                    <ListItemText primary="PT" />
-                  </ListItemButton>
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemButton
                     onClick={() => handlLanguageItemClick("en")}
                     selected={selectedLang === "en"}
                   >
@@ -136,6 +123,26 @@ const Header: React.FC = () => {
                       />
                     </ListItemIcon>
                     <ListItemText primary="EN" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton
+                    onClick={() => handlLanguageItemClick("pt")}
+                    selected={selectedLang === "pt"}
+                  >
+                    <ListItemIcon>
+                      <Avatar
+                        alt="pokemon logo"
+                        src={"src/assets/flags/portugueseFlag.svg"}
+                        sx={{
+                          width: "50%",
+                          height: "50%",
+                          borderRadius: "0",
+                          alignItems: "center",
+                        }}
+                      />
+                    </ListItemIcon>
+                    <ListItemText primary="PT" />
                   </ListItemButton>
                 </ListItem>
               </List>
