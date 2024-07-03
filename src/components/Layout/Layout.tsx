@@ -8,7 +8,12 @@ export interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <Box>
+    <Box
+      sx={{
+        background: "#DFFBFF",
+        height: "100vh",
+      }}
+    >
       <Header />
       {children}
     </Box>
