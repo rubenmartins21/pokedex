@@ -4,6 +4,13 @@ body,
   margin: 0; /* Remove any default margin */
 }
 
+@font-face {
+  font-family: "Istok Web";
+  src: local("Istok Web"),
+    url("./utils/fonts/Istok_Web/IstokWeb-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+
 /* .logo {
   height: 6em;
   padding: 1.5em;

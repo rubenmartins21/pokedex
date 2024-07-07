@@ -11,7 +11,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <Box
       sx={{
         background: "#DFFBFF",
-        height: "100vh",
+        minHeight: "100vh",
       }}
     >
       <Header />
