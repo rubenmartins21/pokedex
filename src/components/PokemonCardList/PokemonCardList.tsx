@@ -1,12 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import usePokemon from "../../hooks/usePokemon";
+import PokemonCard from "../PokemonCard/PokemonCard";
 
 const PokemonCardList: React.FC = () => {
   const { t } = useTranslation();
 
-  const { getAllPokemons, allPokemons } = usePokemon();
+  const { getAllPokemons, pokemonsDetails } = usePokemon();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -36,10 +37,8 @@ const PokemonCardList: React.FC = () => {
         alignItems: "center",
       }}
     >
-      {allPokemons &&
-        allPokemons.results.map((item) => (
-          <Typography key={item.name}>{item.name}</Typography>
-        ))}
+      {pokemonsDetails &&
+        pokemonsDetails.map((item) => <PokemonCard pokemon={item} />)}
       {!isLoading && (
         <Button
           variant="outlined"

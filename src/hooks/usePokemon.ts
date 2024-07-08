@@ -1,16 +1,21 @@
 import { useState } from "react";
 import axiosInstance from "../utils/api/axiosInstance";
-import { AllPokemonsProps } from "../utils/interfaces";
+import {
+  IAllPokemons,
+  IAllPokemonsResults,
+  IPokemon,
+} from "../utils/interfaces/Pokemon/Pokemon";
 
 const usePokemon = () => {
-  const [allPokemons, setAllPokemons] = useState<AllPokemonsProps>();
+  const [allPokemons, setAllPokemons] = useState<IAllPokemons>();
+
+  const [pokemonsDetails, setPokemonsDetails] = useState<IPokemon[]>();
 
   const getAllPokemons = async () => {
     try {
       let apiUrl = "/pokemon/";
 
       if (allPokemons && allPokemons.next) {
-        console.log("hello");
         const nextUrlSegment = allPokemons.next.split("/")[6];
         apiUrl = `/pokemon/${nextUrlSegment}/`;
       }
@@ -29,15 +34,29 @@ const usePokemon = () => {
         previous,
         results: updatedResults,
       });
+
+      await getAllPokemonsDetails(updatedResults);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const getAllPokemonsDetails = async (results: IAllPokemonsResults[]) => {
+    let newDetails = [];
+    results.map(async (item) => {
+      const response = await axiosInstance.get(item.url);
+
+      newDetails.push(response.data);
+      setPokemonsDetails(newDetails);
+    });
   };
 
   return {
     getAllPokemons,
     allPokemons,
     setAllPokemons,
+    getAllPokemonsDetails,
+    pokemonsDetails,
   };
 };
 
