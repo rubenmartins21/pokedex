@@ -13,10 +13,10 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
         alt="pokemon logo"
         src={pokemon.sprites.other["official-artwork"].front_default}
         sx={{
-          width: "50%",
-          height: "50%",
           borderRadius: "0",
           alignItems: "center",
+          width: "139.47px",
+          height: "130.25px",
         }}
       />
     </Box>

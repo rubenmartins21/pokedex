@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Grid, Typography } from "@mui/material";
 import usePokemon from "../../hooks/usePokemon";
 import PokemonCard from "../PokemonCard/PokemonCard";
 
@@ -37,8 +37,29 @@ const PokemonCardList: React.FC = () => {
         alignItems: "center",
       }}
     >
-      {pokemonsDetails &&
-        pokemonsDetails.map((item) => <PokemonCard pokemon={item} />)}
+      {pokemonsDetails && (
+        <Box sx={{ flexGrow: 1, marginTop: "20px" }}>
+          <Grid
+            container
+            // spacing={{ xs: 2, md: 3 }}
+            columns={{ xs: 4, sm: 2, md: 12 }}
+          >
+            {pokemonsDetails.map((item, index) => (
+              <Grid
+                xs={12}
+                sm={3}
+                key={index}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <PokemonCard pokemon={item} key={index} />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      )}
       {!isLoading && (
         <Button
           variant="outlined"
