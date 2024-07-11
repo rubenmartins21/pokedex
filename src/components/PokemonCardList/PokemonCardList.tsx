@@ -55,6 +55,7 @@ const PokemonCardList: React.FC = () => {
                 sx={{
                   display: "flex",
                   justifyContent: "center",
+                  marginBottom: "20px",
                 }}
               >
                 <PokemonCard pokemon={item} key={index} />
@@ -80,6 +81,8 @@ const PokemonCardList: React.FC = () => {
             color: "#726B8F",
             textTransform: "none",
             border: "2px solid #726B8F",
+            marginBottom: "20px",
+            marginTop: "20px",
             "&:hover": {
               backgroundColor: "#726B8F",
               border: "2px solid #726B8F",

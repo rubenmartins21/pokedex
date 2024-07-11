@@ -28,7 +28,17 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
   return (
     <>
       {pokemonData && (
-        <Box>
+        <Box
+          sx={{
+            width: "197.58px",
+            height: "184.51px",
+            borderRadius: "12px",
+            background: "#BFDFCC",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <Avatar
             alt="pokemon logo"
             src={pokemonData.sprites.other["official-artwork"].front_default}
