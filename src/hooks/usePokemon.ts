@@ -35,7 +35,7 @@ const usePokemon = () => {
         results: updatedResults,
       });
 
-      await getAllPokemonsDetails(updatedResults);
+      // await getAllPokemonsDetails(updatedResults);
     } catch (error) {
       console.error(error);
     }
@@ -51,12 +51,19 @@ const usePokemon = () => {
     });
   };
 
+  const getPokemonsDetails = async (pokemonUrl: string) => {
+    const response = await axiosInstance.get(pokemonUrl);
+
+    return response.data;
+  };
+
   return {
     getAllPokemons,
     allPokemons,
     setAllPokemons,
     getAllPokemonsDetails,
     pokemonsDetails,
+    getPokemonsDetails,
   };
 };
 

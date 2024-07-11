@@ -7,18 +7,21 @@ import PokemonCard from "../PokemonCard/PokemonCard";
 const PokemonCardList: React.FC = () => {
   const { t } = useTranslation();
 
-  const { getAllPokemons, pokemonsDetails } = usePokemon();
+  const { getAllPokemons, allPokemons } = usePokemon();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const fetchAllPokemonsData = async () => {
     if (isLoading) return;
 
     setIsLoading(true);
 
-    getAllPokemons();
-
-    setIsLoading(false);
+    try {
+      await getAllPokemons();
+    } catch (error) {
+      console.error("Failed to fetch Pokémon data:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   React.useEffect(() => {
@@ -37,14 +40,14 @@ const PokemonCardList: React.FC = () => {
         alignItems: "center",
       }}
     >
-      {pokemonsDetails && (
+      {allPokemons && (
         <Box sx={{ flexGrow: 1, marginTop: "20px" }}>
           <Grid
             container
             // spacing={{ xs: 2, md: 3 }}
             columns={{ xs: 4, sm: 2, md: 12 }}
           >
-            {pokemonsDetails.map((item, index) => (
+            {allPokemons.results.map((item, index) => (
               <Grid
                 xs={12}
                 sm={3}
@@ -92,7 +95,11 @@ const PokemonCardList: React.FC = () => {
 
       {isLoading && (
         <Box sx={{ display: "flex" }}>
-          <CircularProgress />
+          <CircularProgress
+            sx={{
+              color: "#726B8F",
+            }}
+          />
         </Box>
       )}
     </Box>
