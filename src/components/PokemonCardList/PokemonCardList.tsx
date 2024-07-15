@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Box, Button, CircularProgress, Grid, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Grid } from "@mui/material";
 import usePokemon from "../../hooks/usePokemon";
 import PokemonCard from "../PokemonCard/PokemonCard";
 
@@ -42,11 +42,7 @@ const PokemonCardList: React.FC = () => {
     >
       {allPokemons && (
         <Box sx={{ flexGrow: 1, marginTop: "20px" }}>
-          <Grid
-            container
-            // spacing={{ xs: 2, md: 3 }}
-            columns={{ xs: 4, sm: 2, md: 12 }}
-          >
+          <Grid container columns={{ xs: 4, sm: 2, md: 12 }}>
             {allPokemons.results.map((item, index) => (
               <Grid
                 xs={12}

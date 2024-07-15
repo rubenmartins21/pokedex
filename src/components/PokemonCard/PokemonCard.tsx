@@ -31,24 +31,32 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
         <Box
           sx={{
             width: "197.58px",
-            height: "184.51px",
-            borderRadius: "12px",
-            background: "#BFDFCC",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            height: "268.64px",
+            background: "red",
           }}
         >
-          <Avatar
-            alt="pokemon logo"
-            src={pokemonData.sprites.other["official-artwork"].front_default}
+          <Box
             sx={{
-              borderRadius: "0",
+              width: "197.58px",
+              height: "184.51px",
+              borderRadius: "12px",
+              background: "#BFDFCC",
+              display: "flex",
+              justifyContent: "center",
               alignItems: "center",
-              width: "139.47px",
-              height: "130.25px",
             }}
-          />
+          >
+            <Avatar
+              alt="pokemon logo"
+              src={pokemonData.sprites.other["official-artwork"].front_default}
+              sx={{
+                borderRadius: "0",
+                alignItems: "center",
+                width: "139.47px",
+                height: "130.25px",
+              }}
+            />
+          </Box>
         </Box>
       )}
     </>
