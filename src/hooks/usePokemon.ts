@@ -5,6 +5,7 @@ import {
   IAllPokemonsResults,
   IPokemon,
 } from "../utils/interfaces/Pokemon/Pokemon";
+import { typesColors } from "../utils/constants";
 
 const usePokemon = () => {
   const [allPokemons, setAllPokemons] = useState<IAllPokemons>();
@@ -34,8 +35,6 @@ const usePokemon = () => {
         previous,
         results: updatedResults,
       });
-
-      // await getAllPokemonsDetails(updatedResults);
     } catch (error) {
       console.error(error);
     }
@@ -57,6 +56,12 @@ const usePokemon = () => {
     return response.data;
   };
 
+  const getTypeColor = (type: string) => {
+    const typeData = typesColors.find((item) => item.name === type);
+
+    return typeData?.color;
+  };
+
   return {
     getAllPokemons,
     allPokemons,
@@ -64,6 +69,7 @@ const usePokemon = () => {
     getAllPokemonsDetails,
     pokemonsDetails,
     getPokemonsDetails,
+    getTypeColor,
   };
 };
 

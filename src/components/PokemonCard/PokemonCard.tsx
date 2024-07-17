@@ -3,7 +3,7 @@ import {
   IAllPokemonsResults,
   IPokemon,
 } from "../../utils/interfaces/Pokemon/Pokemon";
-import { Avatar, Box } from "@mui/material";
+import { Avatar, Box, Grid, Typography } from "@mui/material";
 import usePokemon from "../../hooks/usePokemon";
 
 export interface PokemonCardProps {
@@ -11,7 +11,7 @@ export interface PokemonCardProps {
 }
 
 const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
-  const { getPokemonsDetails } = usePokemon();
+  const { getPokemonsDetails, getTypeColor } = usePokemon();
   const [pokemonData, setPokemonData] = useState<IPokemon>();
 
   const fecthData = async () => {
@@ -25,6 +25,31 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
       fecthData();
     }
   }, [pokemon]);
+
+  const numberOfDigits = (n: number) => {
+    let result = 0;
+    const id = n;
+
+    while (n > 0) {
+      n = Math.floor(n / 10);
+      result++;
+    }
+
+    if (result === 1) {
+      return `000${id}`;
+    }
+
+    if (result === 2) {
+      return `00${id}`;
+    }
+    if (result === 3) {
+      return `0${id}`;
+    }
+
+    if (result === 4) {
+      return `${id}`;
+    }
+  };
   return (
     <>
       {pokemonData && (
@@ -32,7 +57,6 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
           sx={{
             width: "197.58px",
             height: "268.64px",
-            background: "red",
           }}
         >
           <Box
@@ -57,6 +81,66 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
               }}
             />
           </Box>
+
+          <Box>
+            <Typography
+              sx={{
+                fontFamily: "Istok Web",
+                fontStyle: "normal",
+                fontWeight: 700,
+                fontSize: "16px",
+                lineheight: "23px",
+
+                color: "rgba(58, 47, 102, 0.65)",
+              }}
+            >
+              n {numberOfDigits(pokemonData.id)}
+            </Typography>
+          </Box>
+          <Box>
+            <Typography
+              sx={{
+                fontFamily: "Istok Web",
+                fontStyle: "normal",
+                fontWeight: 700,
+                fontSize: "22px",
+                lineHeight: "32px",
+                color: "#3A2F66",
+              }}
+            >
+              {pokemonData.name}
+            </Typography>
+          </Box>
+          <Grid container spacing={2} columns={{ xs: 1, sm: 2, md: 2 }}>
+            {pokemonData.types.map((item, index) => (
+              <Grid item xs={12} sm={6} key={index}>
+                <Box
+                  sx={{
+                    background: `${getTypeColor(item.type.name)}`,
+                    width: "64.46px",
+                    height: "15.64px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontFamily: "Istok Web",
+                      fontStyle: "normal",
+                      fontWeight: 400,
+                      fontSize: "12px",
+                      lineHeight: "17px",
+                      textAlign: "center",
+                      color: "#fff",
+                    }}
+                  >
+                    {item.type.name}
+                  </Typography>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
         </Box>
       )}
     </>
