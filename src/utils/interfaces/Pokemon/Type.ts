@@ -20,6 +20,7 @@ export interface IType {
 export interface ITypeColor {
   id: number;
   name: string;
+  translation_pt: string;
   color: string;
 }
 

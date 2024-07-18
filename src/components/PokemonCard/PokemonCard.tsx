@@ -5,13 +5,18 @@ import {
 } from "../../utils/interfaces/Pokemon/Pokemon";
 import { Avatar, Box, Grid, Typography } from "@mui/material";
 import usePokemon from "../../hooks/usePokemon";
+import { useTranslation } from "react-i18next";
 
 export interface PokemonCardProps {
   pokemon: IAllPokemonsResults;
 }
 
 const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
-  const { getPokemonsDetails, getTypeColor } = usePokemon();
+  const { getPokemonsDetails, getTypeColor, getTranslatedType } = usePokemon();
+
+  const { i18n } = useTranslation();
+  const currentLanguage = i18n.language;
+
   const [pokemonData, setPokemonData] = useState<IPokemon>();
 
   const fecthData = async () => {
@@ -57,6 +62,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
           sx={{
             width: "197.58px",
             height: "268.64px",
+            marginBottom: "40px",
           }}
         >
           <Box
@@ -82,7 +88,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
             />
           </Box>
 
-          <Box>
+          <Box sx={{ marginTop: "10px" }}>
             <Typography
               sx={{
                 fontFamily: "Istok Web",
@@ -97,7 +103,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
               n {numberOfDigits(pokemonData.id)}
             </Typography>
           </Box>
-          <Box>
+          <Box sx={{ marginBottom: "10px" }}>
             <Typography
               sx={{
                 fontFamily: "Istok Web",
@@ -108,12 +114,13 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
                 color: "#3A2F66",
               }}
             >
-              {pokemonData.name}
+              {pokemonData.name.charAt(0).toUpperCase() +
+                pokemonData.name.slice(1)}
             </Typography>
           </Box>
-          <Grid container spacing={2} columns={{ xs: 1, sm: 2, md: 2 }}>
+          <Grid container spacing={9} direction="row">
             {pokemonData.types.map((item, index) => (
-              <Grid item xs={12} sm={6} key={index}>
+              <Grid item xs={6} sm={3} md={2} key={index}>
                 <Box
                   sx={{
                     background: `${getTypeColor(item.type.name)}`,
@@ -122,6 +129,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    borderRadius: 1,
                   }}
                 >
                   <Typography
@@ -135,7 +143,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
                       color: "#fff",
                     }}
                   >
-                    {item.type.name}
+                    {getTranslatedType(item.type.name, currentLanguage)}
                   </Typography>
                 </Box>
               </Grid>

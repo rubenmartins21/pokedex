@@ -62,6 +62,12 @@ const usePokemon = () => {
     return typeData?.color;
   };
 
+  const getTranslatedType = (type: string, lang: string) => {
+    const typeData = typesColors.find((item) => item.name === type);
+
+    return lang === "en" ? typeData?.name : typeData?.translation_pt;
+  };
+
   return {
     getAllPokemons,
     allPokemons,
@@ -70,6 +76,7 @@ const usePokemon = () => {
     pokemonsDetails,
     getPokemonsDetails,
     getTypeColor,
+    getTranslatedType,
   };
 };
 
