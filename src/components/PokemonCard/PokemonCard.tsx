@@ -12,12 +12,19 @@ export interface PokemonCardProps {
 }
 
 const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
-  const { getPokemonsDetails, getTypeColor, getTranslatedType } = usePokemon();
+  const {
+    getPokemonsDetails,
+    getTypeColor,
+    getTranslatedType,
+    getPokemonPaletteColor,
+  } = usePokemon();
 
   const { i18n } = useTranslation();
   const currentLanguage = i18n.language;
 
   const [pokemonData, setPokemonData] = useState<IPokemon>();
+
+  const [cardBackground, setCardBackground] = useState<string>("#BFDFCC");
 
   const fecthData = async () => {
     const response = await getPokemonsDetails(pokemon.url);
@@ -30,6 +37,16 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
       fecthData();
     }
   }, [pokemon]);
+
+  useEffect(() => {
+    if (pokemonData) {
+      const palette = getPokemonPaletteColor(pokemonData.id);
+      if (palette) {
+        console.log(palette);
+        setCardBackground(palette[0]);
+      }
+    }
+  }, [pokemonData]);
 
   const numberOfDigits = (n: number) => {
     let result = 0;
@@ -70,7 +87,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
               width: "197.58px",
               height: "184.51px",
               borderRadius: "12px",
-              background: `${getTypeColor(pokemonData.types[0].type.name)}`,
+              background: cardBackground,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
