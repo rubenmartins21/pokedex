@@ -70,7 +70,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
               width: "197.58px",
               height: "184.51px",
               borderRadius: "12px",
-              background: "#BFDFCC",
+              background: `${getTypeColor(pokemonData.types[0].type.name)}`,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
