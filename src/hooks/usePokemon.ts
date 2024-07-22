@@ -6,11 +6,13 @@ import {
   IPokemon,
 } from "../utils/interfaces/Pokemon/Pokemon";
 import { typesColors } from "../utils/constants";
+import axios from "axios";
+import ColorThief from "colorthief";
 
 const usePokemon = () => {
   const [allPokemons, setAllPokemons] = useState<IAllPokemons>();
 
-  const [pokemonsDetails, setPokemonsDetails] = useState<IPokemon[]>();
+  const [pokemonsDetails, setPokemonsDetails] = useState<IPokemon[]>([]);
 
   const getAllPokemons = async () => {
     try {
@@ -41,7 +43,7 @@ const usePokemon = () => {
   };
 
   const getAllPokemonsDetails = async (results: IAllPokemonsResults[]) => {
-    let newDetails = [];
+    const newDetails = pokemonsDetails;
     results.map(async (item) => {
       const response = await axiosInstance.get(item.url);
 
@@ -52,6 +54,10 @@ const usePokemon = () => {
 
   const getPokemonsDetails = async (pokemonUrl: string) => {
     const response = await axiosInstance.get(pokemonUrl);
+
+    pokemonColorPaletteExtractor(
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/40.png"
+    );
 
     return response.data;
   };
@@ -66,6 +72,23 @@ const usePokemon = () => {
     const typeData = typesColors.find((item) => item.name === type);
 
     return lang === "en" ? typeData?.name : typeData?.translation_pt;
+  };
+
+  const pokemonColorPaletteExtractor = (imageUrl: string) => {
+    const colorThief = new ColorThief();
+
+    // Fetch the image using Axios
+    axios
+      .get(imageUrl, { responseType: "blob" })
+      .then((response) => {
+        const img = new Image();
+        img.src = URL.createObjectURL(response.data);
+        img.onload = () => {
+          const palette = colorThief.getPalette(img); // Get a palette of 5 colors
+          console.log("palete => ", palette);
+        };
+      })
+      .catch((error) => console.error("Error fetching the image:", error));
   };
 
   return {
