@@ -89,34 +89,32 @@ const usePokemon = () => {
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
   };
 
-  const pokemonColorPaletteExtractor = (
+  const pokemonColorPaletteExtractor = async (
     pokemonId: number,
     imageUrl: string
   ) => {
     const colorThief = new ColorThief();
 
-    axios
-      .get(imageUrl, { responseType: "blob" })
-      .then((response) => {
-        const img = new Image();
-        img.src = URL.createObjectURL(response.data);
-        img.onload = () => {
-          const palette = colorThief.getPalette(img);
-          const reorderPalette = sortColorsByLikeness(palette);
-          // console.log(reorderPalette);
+    try {
+      const response = await axios.get(imageUrl, { responseType: "blob" });
+      const img = new Image();
+      img.src = URL.createObjectURL(response.data);
 
-          const hexPalette: string[] = [];
-          reorderPalette.map((item) => {
-            hexPalette.push(rgbToHex(item[0], item[1], item[2]));
-          });
+      img.onload = () => {
+        const palette = colorThief.getPalette(img);
+        const dominantColor = colorThief.getColor(img);
+        console.log(dominantColor);
+        const sortedPalette = sortColorsByLightness(palette);
+        const hexPalette = sortedPalette.map(([r, g, b]) => rgbToHex(r, g, b));
 
-          const newPaletteData = pokemonPaletteColor;
-
-          newPaletteData.push({ id: pokemonId, paletteColor: hexPalette });
-          setPokemonPaletteColor(newPaletteData);
-        };
-      })
-      .catch((error) => console.error("Error fetching the image:", error));
+        setPokemonPaletteColor((prevPalette) => [
+          ...prevPalette,
+          { id: pokemonId, paletteColor: hexPalette },
+        ]);
+      };
+    } catch (error) {
+      console.error("Error fetching the image:", error);
+    }
   };
 
   const getPokemonPaletteColor = (id: number) => {
@@ -125,37 +123,47 @@ const usePokemon = () => {
     return findPalette?.paletteColor;
   };
 
-  const sortColorsByLikeness = (colors: Color[]) => {
-    return colors.sort((a: Color, b: Color) => {
-      // Convert hexadecimal colors to RGB values
-      const rgbA = a;
-      const rgbB = b;
+  const rgbToHsl = ({ r, g, b }: { r: number; g: number; b: number }) => {
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    const max = Math.max(r, g, b),
+      min = Math.min(r, g, b);
+    let h = (max + min) / 2;
+    let s = (max + min) / 2;
+    const l = (max + min) / 2;
 
-      // Calculate the difference between the colors
-      const diffR = Math.abs(rgbA[0] - rgbB[0]);
-      const diffG = Math.abs(rgbA[1] - rgbB[1]);
-      const diffB = Math.abs(rgbA[2] - rgbB[2]);
-
-      // Calculate the total difference
-      const totalDiff = diffR + diffG + diffB;
-
-      // Compare the colors based on their total difference
-      return totalDiff;
-    });
+    if (max === min) {
+      h = s = 0;
+    } else {
+      const d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch (max) {
+        case r:
+          h = (g - b) / d + (g < b ? 6 : 0);
+          break;
+        case g:
+          h = (b - r) / d + 2;
+          break;
+        case b:
+          h = (r - g) / d + 4;
+          break;
+      }
+      h /= 6;
+    }
+    return { h, s, l };
   };
 
-  // function hexToRgb = (hex) =>{
-  //   // Remove the '#' symbol if present
-  //   hex = hex.replace('#', '');
+  const sortColorsByLightness = (rgbColors: Color[]) => {
+    const colorsWithLightness = rgbColors.map(([r, g, b]) => {
+      const hsl = rgbToHsl({ r, g, b });
+      return { rgb: [r, g, b], lightness: hsl.l };
+    });
 
-  //   // Convert hexadecimal to decimal
-  //   const r = parseInt(hex.substring(0, 2), 16);
-  //   const g = parseInt(hex.substring(2, 4), 16);
-  //   const b = parseInt(hex.substring(4, 6), 16);
+    colorsWithLightness.sort((a, b) => b.lightness - a.lightness);
 
-  //   return { r, g, b };
-  // }
-
+    return colorsWithLightness.map((color) => color.rgb);
+  };
   return {
     getAllPokemons,
     allPokemons,

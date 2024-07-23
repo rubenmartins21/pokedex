@@ -41,12 +41,12 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
   useEffect(() => {
     if (pokemonData) {
       const palette = getPokemonPaletteColor(pokemonData.id);
+
       if (palette) {
-        console.log(palette);
         setCardBackground(palette[0]);
       }
     }
-  }, [pokemonData]);
+  }, [pokemonData, getPokemonPaletteColor]);
 
   const numberOfDigits = (n: number) => {
     let result = 0;

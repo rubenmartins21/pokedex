@@ -50,11 +50,13 @@ const PokemonCardList: React.FC = () => {
       >
         {allPokemons && (
           <Box sx={{ flexGrow: 1, marginTop: "20px" }}>
-            <Grid container columns={{ xs: 4, sm: 2, md: 12 }}>
-              {allPokemons.results.map((item, index) => (
+            <Grid container spacing={2} columns={{ xs: 4, sm: 8, md: 12 }}>
+              {allPokemons.results.map((pokemon, index) => (
                 <Grid
+                  item
                   xs={12}
-                  sm={3}
+                  sm={6}
+                  md={3}
                   key={index}
                   sx={{
                     display: "flex",
@@ -62,12 +64,13 @@ const PokemonCardList: React.FC = () => {
                     marginBottom: "20px",
                   }}
                 >
-                  <PokemonCard pokemon={item} key={index} />
+                  <PokemonCard pokemon={pokemon} />
                 </Grid>
               ))}
             </Grid>
           </Box>
         )}
+
         {!isLoading && (
           <Button
             variant="outlined"
