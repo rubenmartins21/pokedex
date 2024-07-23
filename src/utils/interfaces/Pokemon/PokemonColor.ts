@@ -12,4 +12,5 @@ export interface IPokemonColor {
 export interface IPokemonPaletteColor {
   id: number;
   paletteColor: string[];
+  dominantColor: string;
 }

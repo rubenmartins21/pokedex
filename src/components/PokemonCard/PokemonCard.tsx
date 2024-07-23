@@ -17,6 +17,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
     getTypeColor,
     getTranslatedType,
     getPokemonPaletteColor,
+    getPokemonDominantColor,
   } = usePokemon();
 
   const { i18n } = useTranslation();
@@ -40,10 +41,9 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
 
   useEffect(() => {
     if (pokemonData) {
-      const palette = getPokemonPaletteColor(pokemonData.id);
-
-      if (palette) {
-        setCardBackground(palette[0]);
+      const dominantColor = getPokemonDominantColor(pokemonData.id);
+      if (dominantColor) {
+        setCardBackground(dominantColor);
       }
     }
   }, [pokemonData, getPokemonPaletteColor]);
@@ -84,8 +84,8 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
         >
           <Box
             sx={{
-              width: "197.58px",
-              height: "184.51px",
+              width: "207.58px",
+              height: "194.51px",
               borderRadius: "12px",
               background: cardBackground,
               display: "flex",
@@ -99,8 +99,8 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
               sx={{
                 borderRadius: "0",
                 alignItems: "center",
-                width: "139.47px",
-                height: "130.25px",
+                width: "auto",
+                height: "90%",
               }}
             />
           </Box>

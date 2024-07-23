@@ -103,13 +103,21 @@ const usePokemon = () => {
       img.onload = () => {
         const palette = colorThief.getPalette(img);
         const dominantColor = colorThief.getColor(img);
-        console.log(dominantColor);
+        const hexDominantColor = rgbToHex(
+          dominantColor[0],
+          dominantColor[1],
+          dominantColor[2]
+        );
         const sortedPalette = sortColorsByLightness(palette);
         const hexPalette = sortedPalette.map(([r, g, b]) => rgbToHex(r, g, b));
 
         setPokemonPaletteColor((prevPalette) => [
           ...prevPalette,
-          { id: pokemonId, paletteColor: hexPalette },
+          {
+            id: pokemonId,
+            paletteColor: hexPalette,
+            dominantColor: hexDominantColor,
+          },
         ]);
       };
     } catch (error) {
@@ -121,6 +129,12 @@ const usePokemon = () => {
     const findPalette = pokemonPaletteColor.find((item) => item.id === id);
 
     return findPalette?.paletteColor;
+  };
+
+  const getPokemonDominantColor = (id: number) => {
+    const findPalette = pokemonPaletteColor.find((item) => item.id === id);
+
+    return findPalette?.dominantColor;
   };
 
   const rgbToHsl = ({ r, g, b }: { r: number; g: number; b: number }) => {
@@ -174,6 +188,7 @@ const usePokemon = () => {
     getTypeColor,
     getTranslatedType,
     getPokemonPaletteColor,
+    getPokemonDominantColor,
   };
 };
 
