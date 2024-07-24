@@ -142,7 +142,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
                   sx={{
                     background: `${getTypeColor(item.type.name)}`,
                     width: "64.46px",
-                    height: "15.64px",
+                    height: "20.64px",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",

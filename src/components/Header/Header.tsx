@@ -156,7 +156,19 @@ const Header: React.FC = () => {
                             }}
                           />
                         </ListItemIcon>
-                        <ListItemText primary="EN" />
+                        <ListItemText
+                          primary="EN"
+                          sx={{
+                            "& .MuiListItemText-primary": {
+                              fontFamily: "Istok Web",
+                              fontStyle: "normal",
+                              fontWeight: 400,
+                              // fontSize: "12px",
+                              lineHeight: "17px",
+                              textAlign: "center",
+                            },
+                          }}
+                        />
                       </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
@@ -176,7 +188,19 @@ const Header: React.FC = () => {
                             }}
                           />
                         </ListItemIcon>
-                        <ListItemText primary="PT" />
+                        <ListItemText
+                          primary="PT"
+                          sx={{
+                            "& .MuiListItemText-primary": {
+                              fontFamily: "Istok Web",
+                              fontStyle: "normal",
+                              fontWeight: 400,
+                              // fontSize: "12px",
+                              lineHeight: "17px",
+                              textAlign: "center",
+                            },
+                          }}
+                        />
                       </ListItemButton>
                     </ListItem>
                   </List>
