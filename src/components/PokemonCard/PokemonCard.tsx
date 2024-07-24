@@ -77,14 +77,26 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
       {pokemonData && (
         <Box
           sx={{
-            width: "197.58px",
+            width: {
+              xs: "170px",
+              sm: "170px",
+              md: "170px",
+              lg: "197.58px",
+              xl: "197.58px",
+            },
             height: "268.64px",
             marginBottom: "40px",
           }}
         >
           <Box
             sx={{
-              width: "207.58px",
+              width: {
+                xs: "170px",
+                sm: "170px",
+                md: "170px",
+                lg: "197.58px",
+                xl: "197.58px",
+              },
               height: "194.51px",
               borderRadius: "12px",
               background: cardBackground,
@@ -99,8 +111,30 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
               sx={{
                 borderRadius: "0",
                 alignItems: "center",
-                width: "auto",
-                height: "90%",
+                "& img": {
+                  objectFit: {
+                    xs: "fill",
+                    sm: "fill",
+                    md: "fill",
+                    lg: "cover",
+                    xl: "cover",
+                  },
+                },
+
+                width: {
+                  xs: "80%",
+                  sm: "80%",
+                  md: "80%",
+                  lg: "auto",
+                  xl: "auto",
+                },
+                height: {
+                  xs: "80%",
+                  sm: "80%",
+                  md: "80%",
+                  lg: "90%",
+                  xl: "90%",
+                },
               }}
             />
           </Box>
@@ -135,7 +169,17 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
                 pokemonData.name.slice(1)}
             </Typography>
           </Box>
-          <Grid container spacing={9} direction="row">
+          <Grid
+            container
+            spacing={{
+              xs: 0,
+              sm: 0,
+              md: 0,
+              lg: 9,
+              xl: 9,
+            }}
+            direction="row"
+          >
             {pokemonData.types.map((item, index) => (
               <Grid item xs={6} sm={3} md={2} key={index}>
                 <Box

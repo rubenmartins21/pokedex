@@ -195,7 +195,6 @@ const Header: React.FC = () => {
                               fontFamily: "Istok Web",
                               fontStyle: "normal",
                               fontWeight: 400,
-                              // fontSize: "12px",
                               lineHeight: "17px",
                               textAlign: "center",
                             },
