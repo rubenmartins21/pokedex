@@ -91,18 +91,31 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
           <Box
             sx={{
               width: {
-                xs: "170px",
-                sm: "170px",
-                md: "170px",
+                xs: "175px",
+                sm: "175px",
+                md: "175px",
                 lg: "197.58px",
                 xl: "197.58px",
               },
-              height: "194.51px",
+              height: {
+                xs: "290px",
+                sm: "260px",
+                md: "260px",
+                lg: "194.51px",
+                xl: "194.51px",
+              },
               borderRadius: "12px",
               background: cardBackground,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              flexDirection: {
+                xs: "column",
+                sm: "column",
+                md: "column",
+                lg: "row",
+                xl: "row",
+              },
             }}
           >
             <Avatar
@@ -137,9 +150,140 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
                 },
               }}
             />
+
+            <Box
+              sx={{
+                marginTop: "2px",
+                display: {
+                  xs: "block",
+                  sm: "block",
+                  md: "block",
+                  lg: "none",
+                  xl: "none",
+                },
+              }}
+            >
+              <Typography
+                sx={{
+                  fontFamily: "Istok Web",
+                  fontStyle: "normal",
+                  fontWeight: 700,
+                  fontSize: "16px",
+                  lineheight: "23px",
+
+                  color: "rgba(58, 47, 102, 0.65)",
+                }}
+              >
+                n {numberOfDigits(pokemonData.id)}
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                marginBottom: "5px",
+                display: {
+                  xs: "block",
+                  sm: "block",
+                  md: "block",
+                  lg: "none",
+                  xl: "none",
+                },
+              }}
+            >
+              <Typography
+                sx={{
+                  fontFamily: "Istok Web",
+                  fontStyle: "normal",
+                  fontWeight: 700,
+                  fontSize: "22px",
+                  lineHeight: "32px",
+                  color: "#3A2F66",
+                }}
+              >
+                {pokemonData.name.charAt(0).toUpperCase() +
+                  pokemonData.name.slice(1)}
+              </Typography>
+            </Box>
+            <Grid
+              container
+              spacing={{
+                xs: 0,
+                sm: 0,
+                md: 0,
+                lg: 9,
+                xl: 9,
+              }}
+              direction="row"
+              sx={{
+                marginBottom: "20px",
+              }}
+            >
+              {pokemonData.types.map((item, index) => (
+                <Grid
+                  item
+                  xs={pokemonData.types.length === 1 ? 12 : 6}
+                  sm={3}
+                  md={2}
+                  key={index}
+                  sx={{
+                    display: {
+                      xs: "flex",
+                      sm: "flex",
+                      md: "flex",
+                      lg: "none",
+                      xl: "none",
+                    },
+                    justifyContent: "center",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      background: `${getTypeColor(item.type.name)}`,
+                      width: "64.46px",
+                      height: "20.64px",
+                      display: {
+                        xs: "flex",
+                        sm: "flex",
+                        md: "flex",
+                        lg: "none",
+                        xl: "none",
+                      },
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: 1,
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontFamily: "Istok Web",
+                        fontStyle: "normal",
+                        fontWeight: 400,
+                        fontSize: "12px",
+                        lineHeight: "17px",
+                        textAlign: "center",
+                        color: "#fff",
+                      }}
+                    >
+                      {getTranslatedType(item.type.name, currentLanguage)}
+                    </Typography>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
           </Box>
 
-          <Box sx={{ marginTop: "10px" }}>
+          <Box
+            sx={{
+              marginTop: "10px",
+              display: {
+                xs: "none",
+                sm: "none",
+                md: "none",
+                lg: "block",
+                xl: "block",
+              },
+            }}
+          >
             <Typography
               sx={{
                 fontFamily: "Istok Web",
@@ -154,7 +298,18 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
               n {numberOfDigits(pokemonData.id)}
             </Typography>
           </Box>
-          <Box sx={{ marginBottom: "10px" }}>
+          <Box
+            sx={{
+              marginBottom: "10px",
+              display: {
+                xs: "none",
+                sm: "none",
+                md: "none",
+                lg: "block",
+                xl: "block",
+              },
+            }}
+          >
             <Typography
               sx={{
                 fontFamily: "Istok Web",
@@ -187,7 +342,13 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
                     background: `${getTypeColor(item.type.name)}`,
                     width: "64.46px",
                     height: "20.64px",
-                    display: "flex",
+                    display: {
+                      xs: "none",
+                      sm: "none",
+                      md: "none",
+                      lg: "flex",
+                      xl: "flex",
+                    },
                     justifyContent: "center",
                     alignItems: "center",
                     borderRadius: 1,
