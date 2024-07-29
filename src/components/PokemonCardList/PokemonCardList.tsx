@@ -38,6 +38,13 @@ const PokemonCardList: React.FC = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        background: {
+          xs: "red",
+          sm: "blue",
+          md: "green",
+          lg: "yelow",
+          xl: "violet",
+        },
       }}
     >
       <Box
@@ -59,13 +66,13 @@ const PokemonCardList: React.FC = () => {
                 lg: 2,
                 xl: 2,
               }}
-              columns={{ xs: 2, sm: 8, md: 12 }}
+              columns={{ xs: 2, sm: 12, md: 12 }}
             >
               {allPokemons.results.map((pokemon, index) => (
                 <Grid
                   item
                   xs={1}
-                  sm={6}
+                  sm={4}
                   md={3}
                   key={index}
                   sx={{
