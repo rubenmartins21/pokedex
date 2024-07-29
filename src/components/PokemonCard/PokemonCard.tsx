@@ -84,21 +84,33 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
               lg: "197.58px",
               xl: "197.58px",
             },
-            height: "268.64px",
-            marginBottom: "40px",
+            height: {
+              xs: "260px",
+              sm: "260px",
+              md: "260px",
+              lg: "194.51px",
+              xl: "194.51px",
+            },
+            marginBottom: {
+              xs: "0px",
+              sm: "0px",
+              md: "0px",
+              lg: "40px",
+              xl: "40px",
+            },
           }}
         >
           <Box
             sx={{
               width: {
-                xs: "175px",
-                sm: "175px",
-                md: "175px",
+                xs: "170px",
+                sm: "170px",
+                md: "170px",
                 lg: "197.58px",
                 xl: "197.58px",
               },
               height: {
-                xs: "290px",
+                xs: "260px",
                 sm: "260px",
                 md: "260px",
                 lg: "194.51px",
@@ -126,27 +138,27 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
                 alignItems: "center",
                 "& img": {
                   objectFit: {
-                    xs: "fill",
-                    sm: "fill",
-                    md: "fill",
-                    lg: "cover",
-                    xl: "cover",
+                    xs: "contain",
+                    sm: "contain",
+                    md: "contain",
+                    lg: "fill",
+                    xl: "fill",
                   },
                 },
 
                 width: {
-                  xs: "80%",
-                  sm: "80%",
-                  md: "80%",
-                  lg: "auto",
-                  xl: "auto",
+                  xs: "100%",
+                  sm: "100%",
+                  md: "100%",
+                  lg: "100%",
+                  xl: "100%",
                 },
                 height: {
-                  xs: "80%",
-                  sm: "80%",
-                  md: "80%",
-                  lg: "90%",
-                  xl: "90%",
+                  xs: "50%",
+                  sm: "50%",
+                  md: "50%",
+                  lg: "100%",
+                  xl: "100%",
                 },
               }}
             />
@@ -215,7 +227,14 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
               }}
               direction="row"
               sx={{
-                marginBottom: "20px",
+                // marginBottom: "20px",
+                width: {
+                  xs: "90%",
+                  sm: "90%",
+                  md: "90%",
+                  lg: "100%",
+                  xl: "100%",
+                },
               }}
             >
               {pokemonData.types.map((item, index) => (

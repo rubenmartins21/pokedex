@@ -45,7 +45,7 @@ const PokemonCardList: React.FC = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          width: "70%",
+          width: "75%",
         }}
       >
         {allPokemons && (
@@ -71,7 +71,13 @@ const PokemonCardList: React.FC = () => {
                   sx={{
                     display: "flex",
                     justifyContent: "center",
-                    marginBottom: "20px",
+                    marginBottom: {
+                      xs: 0,
+                      sm: 0,
+                      md: 0,
+                      lg: "100px",
+                      xl: "100px",
+                    },
                   }}
                 >
                   <PokemonCard pokemon={pokemon} />
