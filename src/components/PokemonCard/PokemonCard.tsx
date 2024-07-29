@@ -183,7 +183,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
                   fontSize: "16px",
                   lineheight: "23px",
 
-                  color: "rgba(58, 47, 102, 0.65)",
+                  color: "#FFFFFF",
                 }}
               >
                 n {numberOfDigits(pokemonData.id)}
@@ -209,7 +209,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
                   fontWeight: 700,
                   fontSize: "22px",
                   lineHeight: "32px",
-                  color: "#3A2F66",
+                  color: "#FFFFFF",
                 }}
               >
                 {pokemonData.name.charAt(0).toUpperCase() +

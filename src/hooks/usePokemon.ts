@@ -178,6 +178,35 @@ const usePokemon = () => {
 
     return colorsWithLightness.map((color) => color.rgb);
   };
+
+  const hexToRgb = (hex: string) => {
+    let r = 0,
+      g = 0,
+      b = 0;
+    if (hex.length === 4) {
+      r = parseInt(hex[1] + hex[1], 16);
+      g = parseInt(hex[2] + hex[2], 16);
+      b = parseInt(hex[3] + hex[3], 16);
+    } else if (hex.length === 7) {
+      r = parseInt(hex[1] + hex[2], 16);
+      g = parseInt(hex[3] + hex[4], 16);
+      b = parseInt(hex[5] + hex[6], 16);
+    }
+    return { r, g, b };
+  };
+  const calculateLuminance = (r: number, g: number, b: number) => {
+    const a = [r, g, b].map((v) => {
+      v /= 255;
+      return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+  };
+
+  const checkBackgroundBrightness = (hex: string) => {
+    const { r, g, b } = hexToRgb(hex);
+    const luminance = calculateLuminance(r, g, b);
+    return luminance > 0.5 ? true : false;
+  };
   return {
     getAllPokemons,
     allPokemons,
@@ -189,6 +218,7 @@ const usePokemon = () => {
     getTranslatedType,
     getPokemonPaletteColor,
     getPokemonDominantColor,
+    checkBackgroundBrightness,
   };
 };
 
