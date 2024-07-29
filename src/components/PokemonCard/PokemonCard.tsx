@@ -227,11 +227,10 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
               }}
               direction="row"
               sx={{
-                // marginBottom: "20px",
                 width: {
                   xs: "90%",
-                  sm: "90%",
-                  md: "90%",
+                  sm: "100%",
+                  md: "100%",
                   lg: "100%",
                   xl: "100%",
                 },
@@ -241,8 +240,8 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
                 <Grid
                   item
                   xs={pokemonData.types.length === 1 ? 12 : 6}
-                  sm={3}
-                  md={2}
+                  sm={pokemonData.types.length === 1 ? 12 : 6}
+                  md={pokemonData.types.length === 1 ? 12 : 6}
                   key={index}
                   sx={{
                     display: {

@@ -38,13 +38,6 @@ const PokemonCardList: React.FC = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        background: {
-          xs: "red",
-          sm: "blue",
-          md: "green",
-          lg: "yelow",
-          xl: "violet",
-        },
       }}
     >
       <Box
