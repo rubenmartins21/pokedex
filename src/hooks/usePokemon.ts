@@ -12,22 +12,18 @@ import { IPokemonPaletteColor } from "../utils/interfaces/Pokemon/PokemonColor";
 
 const usePokemon = () => {
   const [allPokemons, setAllPokemons] = useState<IAllPokemons>();
-
+  const [pokemons, setPokemons] = useState<IAllPokemons>();
   const [pokemonsDetails, setPokemonsDetails] = useState<IPokemon[]>([]);
   const [pokemonPaletteColor, setPokemonPaletteColor] = useState<
     IPokemonPaletteColor[]
   >([]);
 
+  const [searchedPokemonsResults, setSearchedPokemonsResults] =
+    useState<IAllPokemonsResults[]>();
+
   const getAllPokemons = async () => {
     try {
-      let apiUrl = "/pokemon/";
-
-      if (allPokemons && allPokemons.next) {
-        const nextUrlSegment = allPokemons.next.split("/")[6];
-        apiUrl = `/pokemon/${nextUrlSegment}/`;
-      }
-
-      const response = await axiosInstance.get(apiUrl);
+      const response = await axiosInstance.get("/pokemon?limit=100000");
 
       const { count, next, previous, results } = response.data;
 
@@ -36,6 +32,36 @@ const usePokemon = () => {
         : results;
 
       setAllPokemons({
+        count,
+        next,
+        previous,
+        results: updatedResults,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getPokemons = async () => {
+    try {
+      let apiUrl = "/pokemon/";
+
+      if (pokemons && pokemons.next) {
+        const nextUrlSegment = pokemons.next.split("/")[6];
+        apiUrl = `/pokemon/${nextUrlSegment}/`;
+      }
+
+      const response = await axiosInstance.get(apiUrl);
+
+      const { count, next, previous, results } = response.data;
+
+      const updatedResults = pokemons
+        ? [...pokemons.results, ...results]
+        : results;
+
+      console.log(updatedResults);
+
+      setPokemons({
         count,
         next,
         previous,
@@ -209,6 +235,7 @@ const usePokemon = () => {
   };
   return {
     getAllPokemons,
+    getPokemons,
     allPokemons,
     setAllPokemons,
     getAllPokemonsDetails,
@@ -219,6 +246,10 @@ const usePokemon = () => {
     getPokemonPaletteColor,
     getPokemonDominantColor,
     checkBackgroundBrightness,
+    pokemons,
+    setPokemons,
+    searchedPokemonsResults,
+    setSearchedPokemonsResults,
   };
 };
 

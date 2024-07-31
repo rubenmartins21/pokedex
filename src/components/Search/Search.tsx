@@ -1,9 +1,33 @@
 import { Box, IconButton, InputAdornment, InputBase } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import TuneIcon from "@mui/icons-material/Tune";
+import usePokemon from "../../hooks/usePokemon";
 
 const Search: React.FC = () => {
+  const {
+    allPokemons,
+    getAllPokemons,
+    searchedPokemonsResults,
+    setSearchedPokemonsResults,
+  } = usePokemon();
+
+  const onSearchChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    let searchResult = searchedPokemonsResults;
+    searchResult = allPokemons?.results.filter((d) =>
+      d.name.toLowerCase().includes(e.target.value)
+    );
+    setSearchedPokemonsResults(searchResult);
+  };
+
+  React.useEffect(() => {
+    if (!allPokemons) {
+      getAllPokemons();
+    }
+  }, []);
+
   return (
     <Box
       sx={{
@@ -41,6 +65,14 @@ const Search: React.FC = () => {
             borderRadius: "7px",
             display: "flex",
             alignItems: "center",
+            justifyContent: "center",
+            fontFamily: "Istok Web",
+            fontStyle: "normal",
+            fontWeight: 400,
+            fontSize: "18px",
+            lineHeight: "32px",
+            color: "#3A2F66",
+
             "& input::placeholder": {
               fontFamily: "Istok Web",
               fontStyle: "normal",
@@ -53,6 +85,7 @@ const Search: React.FC = () => {
               justifyContent: "center",
             },
           }}
+          onChange={onSearchChange}
         />
       </Box>
       <Box

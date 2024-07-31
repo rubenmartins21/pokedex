@@ -3,11 +3,14 @@ import { useTranslation } from "react-i18next";
 import { Box, Button, CircularProgress, Grid } from "@mui/material";
 import usePokemon from "../../hooks/usePokemon";
 import PokemonCard from "../PokemonCard/PokemonCard";
+import { IAllPokemonsResults } from "../../utils/interfaces/Pokemon/Pokemon";
 
 const PokemonCardList: React.FC = () => {
   const { t } = useTranslation();
 
-  const { getAllPokemons, allPokemons } = usePokemon();
+  const { getPokemons, pokemons, searchedPokemonsResults } = usePokemon();
+
+  const [pokemonList, setPokemonsList] = useState<IAllPokemonsResults[]>();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const fetchAllPokemonsData = async () => {
@@ -16,7 +19,7 @@ const PokemonCardList: React.FC = () => {
     setIsLoading(true);
 
     try {
-      await getAllPokemons();
+      await getPokemons();
     } catch (error) {
       console.error("Failed to fetch Pokémon data:", error);
     } finally {
@@ -27,6 +30,16 @@ const PokemonCardList: React.FC = () => {
   React.useEffect(() => {
     fetchAllPokemonsData();
   }, []);
+
+  React.useEffect(() => {
+    if (searchedPokemonsResults) {
+      setPokemonsList(searchedPokemonsResults);
+    }
+
+    if (!searchedPokemonsResults && pokemons) {
+      setPokemonsList(pokemons.results);
+    }
+  }, [searchedPokemonsResults, pokemons]);
 
   const handleLoadClick = async () => {
     fetchAllPokemonsData();
@@ -48,7 +61,7 @@ const PokemonCardList: React.FC = () => {
           width: "75%",
         }}
       >
-        {allPokemons && (
+        {pokemonList && (
           <Box sx={{ flexGrow: 1, marginTop: "20px" }}>
             <Grid
               container
@@ -61,7 +74,7 @@ const PokemonCardList: React.FC = () => {
               }}
               columns={{ xs: 2, sm: 12, md: 12 }}
             >
-              {allPokemons.results.map((pokemon, index) => (
+              {pokemonList.map((pokemon, index) => (
                 <Grid
                   item
                   xs={1}
