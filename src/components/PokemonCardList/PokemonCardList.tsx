@@ -3,14 +3,16 @@ import { useTranslation } from "react-i18next";
 import { Box, Button, CircularProgress, Grid } from "@mui/material";
 import usePokemon from "../../hooks/usePokemon";
 import PokemonCard from "../PokemonCard/PokemonCard";
-import { IAllPokemonsResults } from "../../utils/interfaces/Pokemon/Pokemon";
+import { useSelector } from "react-redux";
+import { IPokemonInitialStates } from "../../utils/interfaces/Reduxers/PokemonList";
 
 const PokemonCardList: React.FC = () => {
   const { t } = useTranslation();
+  const pokemonList = useSelector(
+    (state: IPokemonInitialStates) => state.pokemonList.pokemonList
+  );
 
-  const { getPokemons, pokemons, searchedPokemonsResults } = usePokemon();
-
-  const [pokemonList, setPokemonsList] = useState<IAllPokemonsResults[]>();
+  const { getPokemons } = usePokemon();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const fetchAllPokemonsData = async () => {
@@ -29,17 +31,8 @@ const PokemonCardList: React.FC = () => {
 
   React.useEffect(() => {
     fetchAllPokemonsData();
+    console.log(pokemonList);
   }, []);
-
-  React.useEffect(() => {
-    if (searchedPokemonsResults) {
-      setPokemonsList(searchedPokemonsResults);
-    }
-
-    if (!searchedPokemonsResults && pokemons) {
-      setPokemonsList(pokemons.results);
-    }
-  }, [searchedPokemonsResults, pokemons]);
 
   const handleLoadClick = async () => {
     fetchAllPokemonsData();

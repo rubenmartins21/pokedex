@@ -59,8 +59,6 @@ const usePokemon = () => {
         ? [...pokemons.results, ...results]
         : results;
 
-      console.log(updatedResults);
-
       setPokemons({
         count,
         next,
@@ -233,6 +231,20 @@ const usePokemon = () => {
     const luminance = calculateLuminance(r, g, b);
     return luminance > 0.5 ? true : false;
   };
+
+  const onSearchChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    const searchResult = allPokemons?.results.filter((d) =>
+      d.name.toLowerCase().includes(e.target.value)
+    );
+
+    setSearchedPokemonsResults((prevResults) => [
+      ...(prevResults || []),
+      ...(searchResult || []),
+    ]);
+  };
+
   return {
     getAllPokemons,
     getPokemons,
@@ -250,6 +262,7 @@ const usePokemon = () => {
     setPokemons,
     searchedPokemonsResults,
     setSearchedPokemonsResults,
+    onSearchChange,
   };
 };
 

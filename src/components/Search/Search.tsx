@@ -1,32 +1,46 @@
 import { Box, IconButton, InputAdornment, InputBase } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import TuneIcon from "@mui/icons-material/Tune";
 import usePokemon from "../../hooks/usePokemon";
+
+import { useDispatch } from "react-redux";
+import { updatePokemonList } from "../../store/actionCreators";
 
 const Search: React.FC = () => {
   const {
     allPokemons,
     getAllPokemons,
+    onSearchChange,
     searchedPokemonsResults,
-    setSearchedPokemonsResults,
+    pokemons,
   } = usePokemon();
 
-  const onSearchChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    let searchResult = searchedPokemonsResults;
-    searchResult = allPokemons?.results.filter((d) =>
-      d.name.toLowerCase().includes(e.target.value)
-    );
-    setSearchedPokemonsResults(searchResult);
-  };
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     if (!allPokemons) {
       getAllPokemons();
     }
   }, []);
+
+  React.useEffect(() => {
+    if (searchedPokemonsResults) {
+      dispatch(updatePokemonList(searchedPokemonsResults));
+      // setPokemonsList((prevData) => [
+      //   ...(prevData || []),
+      //   ...(searchedPokemonsResults || []),
+      // ]);
+    }
+
+    if (!searchedPokemonsResults && pokemons) {
+      dispatch(updatePokemonList(pokemons.results));
+      // setPokemonsList((prevData) => [
+      //   ...(prevData || []),
+      //   ...(pokemons.results || []),
+      // ]);
+    }
+  }, [searchedPokemonsResults, pokemons]);
 
   return (
     <Box
