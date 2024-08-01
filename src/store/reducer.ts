@@ -3,21 +3,18 @@ import { UPDATE_POKEMON_LIST } from "./actionTypes";
 import {
   IPokemonInitialStates,
   IPokemonListAction,
-} from "../utils/interfaces/Reduxers/PokemonList";
+} from "../utils/interfaces/Reducers/PokemonList";
 
 const initialState: IPokemonInitialStates = {
-  pokemonList: [],
+  pokemonsList: [],
 };
 
-const pokemonListReducer = (
-  state = initialState,
-  action: IPokemonListAction
-) => {
+const pokemonReducer = (state = initialState, action: IPokemonListAction) => {
   switch (action.type) {
     case UPDATE_POKEMON_LIST:
       return {
         ...state,
-        pokemonList: [...state.pokemonList, action.payload],
+        pokemonsList: action.pokemonsList,
       };
 
     default:
@@ -26,7 +23,7 @@ const pokemonListReducer = (
 };
 
 const rootReducer = combineReducers({
-  pokemonList: pokemonListReducer,
+  pokemons: pokemonReducer,
 });
 
 export default rootReducer;

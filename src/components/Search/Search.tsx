@@ -4,43 +4,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import TuneIcon from "@mui/icons-material/Tune";
 import usePokemon from "../../hooks/usePokemon";
 
-import { useDispatch } from "react-redux";
-import { updatePokemonList } from "../../store/actionCreators";
-
 const Search: React.FC = () => {
-  const {
-    allPokemons,
-    getAllPokemons,
-    onSearchChange,
-    searchedPokemonsResults,
-    pokemons,
-  } = usePokemon();
-
-  const dispatch = useDispatch();
+  const { allPokemons, getAllPokemons, onSearchChange } = usePokemon();
 
   React.useEffect(() => {
     if (!allPokemons) {
       getAllPokemons();
     }
   }, []);
-
-  React.useEffect(() => {
-    if (searchedPokemonsResults) {
-      dispatch(updatePokemonList(searchedPokemonsResults));
-      // setPokemonsList((prevData) => [
-      //   ...(prevData || []),
-      //   ...(searchedPokemonsResults || []),
-      // ]);
-    }
-
-    if (!searchedPokemonsResults && pokemons) {
-      dispatch(updatePokemonList(pokemons.results));
-      // setPokemonsList((prevData) => [
-      //   ...(prevData || []),
-      //   ...(pokemons.results || []),
-      // ]);
-    }
-  }, [searchedPokemonsResults, pokemons]);
 
   return (
     <Box

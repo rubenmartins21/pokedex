@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import axiosInstance from "../utils/api/axiosInstance";
 import {
   IAllPokemons,
@@ -10,6 +10,11 @@ import axios from "axios";
 import ColorThief, { Color } from "colorthief";
 import { IPokemonPaletteColor } from "../utils/interfaces/Pokemon/PokemonColor";
 
+import { updatePokemonList } from "../store/actionCreators";
+import { useDispatch } from "react-redux";
+
+import debounce from "lodash.debounce";
+
 const usePokemon = () => {
   const [allPokemons, setAllPokemons] = useState<IAllPokemons>();
   const [pokemons, setPokemons] = useState<IAllPokemons>();
@@ -18,8 +23,7 @@ const usePokemon = () => {
     IPokemonPaletteColor[]
   >([]);
 
-  const [searchedPokemonsResults, setSearchedPokemonsResults] =
-    useState<IAllPokemonsResults[]>();
+  const dispatch = useDispatch();
 
   const getAllPokemons = async () => {
     try {
@@ -59,6 +63,7 @@ const usePokemon = () => {
         ? [...pokemons.results, ...results]
         : results;
 
+      dispatch(updatePokemonList(updatedResults));
       setPokemons({
         count,
         next,
@@ -232,19 +237,26 @@ const usePokemon = () => {
     return luminance > 0.5 ? true : false;
   };
 
+  const handleSearchChange = useCallback(
+    debounce((searchValue: string) => {
+      const searchResult = allPokemons?.results.filter((d) =>
+        d.name.toLowerCase().includes(searchValue.toLowerCase())
+      );
+
+      if (searchValue) {
+        dispatch(updatePokemonList(searchResult || []));
+      } else {
+        dispatch(updatePokemonList(pokemons?.results || []));
+      }
+    }, 300),
+    [dispatch, allPokemons, pokemons]
+  );
+
   const onSearchChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
-    const searchResult = allPokemons?.results.filter((d) =>
-      d.name.toLowerCase().includes(e.target.value)
-    );
-
-    setSearchedPokemonsResults((prevResults) => [
-      ...(prevResults || []),
-      ...(searchResult || []),
-    ]);
+    handleSearchChange(e.target.value);
   };
-
   return {
     getAllPokemons,
     getPokemons,
@@ -260,8 +272,6 @@ const usePokemon = () => {
     checkBackgroundBrightness,
     pokemons,
     setPokemons,
-    searchedPokemonsResults,
-    setSearchedPokemonsResults,
     onSearchChange,
   };
 };

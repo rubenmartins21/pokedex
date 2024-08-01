@@ -4,14 +4,13 @@ import { Box, Button, CircularProgress, Grid } from "@mui/material";
 import usePokemon from "../../hooks/usePokemon";
 import PokemonCard from "../PokemonCard/PokemonCard";
 import { useSelector } from "react-redux";
-import { IPokemonInitialStates } from "../../utils/interfaces/Reduxers/PokemonList";
+import { IPokemonInitialStates } from "../../utils/interfaces/Reducers/PokemonList";
 
 const PokemonCardList: React.FC = () => {
   const { t } = useTranslation();
   const pokemonList = useSelector(
-    (state: IPokemonInitialStates) => state.pokemonList.pokemonList
+    (state: { pokemons: IPokemonInitialStates }) => state.pokemons.pokemonsList
   );
-
   const { getPokemons } = usePokemon();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
