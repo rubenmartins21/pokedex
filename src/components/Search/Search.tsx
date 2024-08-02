@@ -3,9 +3,14 @@ import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import TuneIcon from "@mui/icons-material/Tune";
 import usePokemon from "../../hooks/usePokemon";
+import { useSelector } from "react-redux";
+import { IPokemonInitialStates } from "../../utils/interfaces/Reducers/PokemonList";
 
 const Search: React.FC = () => {
-  const { allPokemons, getAllPokemons, onSearchChange } = usePokemon();
+  const allPokemons = useSelector(
+    (state: { pokemons: IPokemonInitialStates }) => state.pokemons.allPokemons
+  );
+  const { getAllPokemons, onSearchChange } = usePokemon();
 
   React.useEffect(() => {
     if (!allPokemons) {

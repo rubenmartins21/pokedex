@@ -1,10 +1,14 @@
-import { IAllPokemonsResults } from "../Pokemon/Pokemon";
+import { IAllPokemons, IPokemon } from "../Pokemon/Pokemon";
 
 export interface IPokemonInitialStates {
-  pokemonsList: IAllPokemonsResults[];
+  pokemonsCardsList: IAllPokemons | null;
+  allPokemons: IAllPokemons | null;
+  pokemonsDetails: IPokemon[] | null;
 }
 
 export interface IPokemonListAction {
   type: string;
-  pokemonsList: IAllPokemonsResults[];
+  pokemonsCardsList: IAllPokemons | null;
+  allPokemons: IAllPokemons | null;
+  pokemonsDetails: IPokemon[] | null;
 }

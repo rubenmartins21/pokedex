@@ -1,24 +1,32 @@
 import { useCallback, useState } from "react";
 import axiosInstance from "../utils/api/axiosInstance";
-import {
-  IAllPokemons,
-  IAllPokemonsResults,
-  IPokemon,
-} from "../utils/interfaces/Pokemon/Pokemon";
+import { IAllPokemonsResults } from "../utils/interfaces/Pokemon/Pokemon";
 import { typesColors } from "../utils/constants";
 import axios from "axios";
 import ColorThief, { Color } from "colorthief";
 import { IPokemonPaletteColor } from "../utils/interfaces/Pokemon/PokemonColor";
 
-import { updatePokemonList } from "../store/actionCreators";
+import {
+  updatePokemonCardsList,
+  updateAllPokemonsList,
+  updatePokemonsDetails,
+} from "../store/actionCreators";
 import { useDispatch } from "react-redux";
 
 import debounce from "lodash.debounce";
+import { IPokemonInitialStates } from "../utils/interfaces/Reducers/PokemonList";
+import { useSelector } from "react-redux";
 
 const usePokemon = () => {
-  const [allPokemons, setAllPokemons] = useState<IAllPokemons>();
-  const [pokemons, setPokemons] = useState<IAllPokemons>();
-  const [pokemonsDetails, setPokemonsDetails] = useState<IPokemon[]>([]);
+  const allPokemons = useSelector(
+    (state: { pokemons: IPokemonInitialStates }) => state.pokemons.allPokemons
+  );
+
+  const pokemonsCardsList = useSelector(
+    (state: { pokemons: IPokemonInitialStates }) =>
+      state.pokemons.pokemonsCardsList
+  );
+
   const [pokemonPaletteColor, setPokemonPaletteColor] = useState<
     IPokemonPaletteColor[]
   >([]);
@@ -35,12 +43,14 @@ const usePokemon = () => {
         ? [...allPokemons.results, ...results]
         : results;
 
-      setAllPokemons({
-        count,
-        next,
-        previous,
-        results: updatedResults,
-      });
+      dispatch(
+        updateAllPokemonsList({
+          count,
+          next,
+          previous,
+          results: updatedResults,
+        })
+      );
     } catch (error) {
       console.error(error);
     }
@@ -50,8 +60,8 @@ const usePokemon = () => {
     try {
       let apiUrl = "/pokemon/";
 
-      if (pokemons && pokemons.next) {
-        const nextUrlSegment = pokemons.next.split("/")[6];
+      if (pokemonsCardsList && pokemonsCardsList.next) {
+        const nextUrlSegment = pokemonsCardsList.next.split("/")[6];
         apiUrl = `/pokemon/${nextUrlSegment}/`;
       }
 
@@ -59,29 +69,28 @@ const usePokemon = () => {
 
       const { count, next, previous, results } = response.data;
 
-      const updatedResults = pokemons
-        ? [...pokemons.results, ...results]
+      const updatedResults = pokemonsCardsList
+        ? [...pokemonsCardsList.results, ...results]
         : results;
 
-      dispatch(updatePokemonList(updatedResults));
-      setPokemons({
-        count,
-        next,
-        previous,
-        results: updatedResults,
-      });
+      dispatch(
+        updatePokemonCardsList({
+          count,
+          next,
+          previous,
+          results: updatedResults,
+        })
+      );
     } catch (error) {
       console.error(error);
     }
   };
 
   const getAllPokemonsDetails = async (results: IAllPokemonsResults[]) => {
-    const newDetails = pokemonsDetails;
     results.map(async (item) => {
       const response = await axiosInstance.get(item.url);
 
-      newDetails.push(response.data);
-      setPokemonsDetails(newDetails);
+      dispatch(updatePokemonsDetails(response.data));
     });
   };
 
@@ -243,13 +252,18 @@ const usePokemon = () => {
         d.name.toLowerCase().includes(searchValue.toLowerCase())
       );
 
-      if (searchValue) {
-        dispatch(updatePokemonList(searchResult || []));
-      } else {
-        dispatch(updatePokemonList(pokemons?.results || []));
+      const data = {
+        count: 1302,
+        next: null,
+        previous: null,
+        results: searchResult || [],
+      };
+
+      if (searchValue.length > 0 && data) {
+        dispatch(updatePokemonCardsList(data));
       }
     }, 300),
-    [dispatch, allPokemons, pokemons]
+    [dispatch, allPokemons, pokemonsCardsList]
   );
 
   const onSearchChange = (
@@ -260,18 +274,13 @@ const usePokemon = () => {
   return {
     getAllPokemons,
     getPokemons,
-    allPokemons,
-    setAllPokemons,
     getAllPokemonsDetails,
-    pokemonsDetails,
     getPokemonsDetails,
     getTypeColor,
     getTranslatedType,
     getPokemonPaletteColor,
     getPokemonDominantColor,
     checkBackgroundBrightness,
-    pokemons,
-    setPokemons,
     onSearchChange,
   };
 };

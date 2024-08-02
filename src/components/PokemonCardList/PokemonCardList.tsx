@@ -8,8 +8,9 @@ import { IPokemonInitialStates } from "../../utils/interfaces/Reducers/PokemonLi
 
 const PokemonCardList: React.FC = () => {
   const { t } = useTranslation();
-  const pokemonList = useSelector(
-    (state: { pokemons: IPokemonInitialStates }) => state.pokemons.pokemonsList
+  const pokemonsCardsList = useSelector(
+    (state: { pokemons: IPokemonInitialStates }) =>
+      state.pokemons.pokemonsCardsList
   );
   const { getPokemons } = usePokemon();
 
@@ -30,7 +31,6 @@ const PokemonCardList: React.FC = () => {
 
   React.useEffect(() => {
     fetchAllPokemonsData();
-    console.log(pokemonList);
   }, []);
 
   const handleLoadClick = async () => {
@@ -53,7 +53,7 @@ const PokemonCardList: React.FC = () => {
           width: "75%",
         }}
       >
-        {pokemonList && (
+        {pokemonsCardsList?.results && (
           <Box sx={{ flexGrow: 1, marginTop: "20px" }}>
             <Grid
               container
@@ -66,7 +66,7 @@ const PokemonCardList: React.FC = () => {
               }}
               columns={{ xs: 2, sm: 12, md: 12 }}
             >
-              {pokemonList.map((pokemon, index) => (
+              {pokemonsCardsList?.results.map((pokemon, index) => (
                 <Grid
                   item
                   xs={1}
