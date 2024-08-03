@@ -56,7 +56,7 @@ const usePokemon = () => {
     }
   };
 
-  const getPokemons = async () => {
+  const getPokemons = async (fromSearchReset: boolean) => {
     try {
       let apiUrl = "/pokemon/";
 
@@ -69,9 +69,15 @@ const usePokemon = () => {
 
       const { count, next, previous, results } = response.data;
 
-      const updatedResults = pokemonsCardsList
-        ? [...pokemonsCardsList.results, ...results]
-        : results;
+      let updatedResults;
+      if (fromSearchReset) {
+        updatedResults = results;
+      }
+      if (!fromSearchReset) {
+        updatedResults = pokemonsCardsList
+          ? [...pokemonsCardsList.results, ...results]
+          : results;
+      }
 
       dispatch(
         updatePokemonCardsList({
@@ -247,7 +253,7 @@ const usePokemon = () => {
   };
 
   const handleSearchChange = useCallback(
-    debounce((searchValue: string) => {
+    debounce(async (searchValue: string) => {
       const searchResult = allPokemons?.results.filter((d) =>
         d.name.toLowerCase().includes(searchValue.toLowerCase())
       );
@@ -261,6 +267,12 @@ const usePokemon = () => {
 
       if (searchValue.length > 0 && data) {
         dispatch(updatePokemonCardsList(data));
+      }
+
+      if (searchValue.length === 0) {
+        const fromSearchReset = true;
+
+        await getPokemons(fromSearchReset);
       }
     }, 300),
     [dispatch, allPokemons, pokemonsCardsList]

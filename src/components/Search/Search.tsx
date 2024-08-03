@@ -75,6 +75,7 @@ const Search: React.FC = () => {
               justifyContent: "center",
             },
           }}
+          onKeyDown={(e) => console.log(e.code)}
           onChange={onSearchChange}
         />
       </Box>
