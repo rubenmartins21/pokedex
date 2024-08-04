@@ -2,7 +2,6 @@ import { combineReducers } from "redux";
 import {
   UPDATE_POKEMON_CARDS_LIST,
   UPDATE_ALL_POKEMON_LIST,
-  UPDATE_POKEMON_DETAILS,
   UPDATE_POKEMON_SEARCH_VALUE,
 } from "./actionTypes";
 import {
@@ -13,7 +12,6 @@ import {
 const initialState: IPokemonInitialStates = {
   pokemonsCardsList: null,
   allPokemons: null,
-  pokemonsDetails: null,
   searchValue: "",
 };
 
@@ -29,12 +27,6 @@ const pokemonReducer = (state = initialState, action: IPokemonListAction) => {
       return {
         ...state,
         allPokemons: action.allPokemons,
-      };
-
-    case UPDATE_POKEMON_DETAILS:
-      return {
-        ...state,
-        pokemonsDetails: action.pokemonsDetails,
       };
 
     case UPDATE_POKEMON_SEARCH_VALUE:

@@ -1,6 +1,5 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import axiosInstance from "../utils/api/axiosInstance";
-import { IAllPokemonsResults } from "../utils/interfaces/Pokemon/Pokemon";
 import { typesColors } from "../utils/constants";
 import axios from "axios";
 import ColorThief, { Color } from "colorthief";
@@ -9,7 +8,6 @@ import { IPokemonPaletteColor } from "../utils/interfaces/Pokemon/PokemonColor";
 import {
   updatePokemonCardsList,
   updateAllPokemonsList,
-  updatePokemonsDetails,
 } from "../store/actionCreators";
 import { useDispatch } from "react-redux";
 
@@ -28,11 +26,6 @@ const usePokemon = () => {
 
   const searchValue = useSelector(
     (state: { pokemons: IPokemonInitialStates }) => state.pokemons.searchValue
-  );
-
-  const pokemonsDetails = useSelector(
-    (state: { pokemons: IPokemonInitialStates }) =>
-      state.pokemons.pokemonsDetails
   );
 
   const [pokemonPaletteColor, setPokemonPaletteColor] = useState<
@@ -99,14 +92,6 @@ const usePokemon = () => {
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const getAllPokemonsDetails = async (results: IAllPokemonsResults[]) => {
-    results.map(async (item) => {
-      const response = await axiosInstance.get(item.url);
-
-      dispatch(updatePokemonsDetails(response.data));
-    });
   };
 
   const getPokemonsDetails = async (pokemonUrl: string) => {
@@ -247,6 +232,7 @@ const usePokemon = () => {
     }
     return { r, g, b };
   };
+
   const calculateLuminance = (r: number, g: number, b: number) => {
     const a = [r, g, b].map((v) => {
       v /= 255;
@@ -262,18 +248,45 @@ const usePokemon = () => {
   };
 
   const onSearch = async () => {
-    const searchResult = allPokemons?.results.filter((d) =>
-      d.name.toLowerCase().includes(searchValue.toLowerCase())
-    );
+    const isIdSearch = /^\d+$/.test(searchValue);
 
-    const data = {
-      count: 1302,
-      next: null,
-      previous: null,
-      results: searchResult || [],
-    };
+    let data;
+    if (!isIdSearch) {
+      const searchResult = allPokemons?.results.filter((d) =>
+        d.name.toLowerCase().includes(searchValue.toLowerCase())
+      );
 
-    if (searchValue.length > 0 && data) {
+      data = {
+        count: 1302,
+        next: null,
+        previous: null,
+        results: searchResult || [],
+      };
+
+      if (searchValue.length > 0 && data) {
+        dispatch(updatePokemonCardsList(data));
+      }
+    }
+
+    if (isIdSearch && searchValue.length > 0) {
+      let id = searchValue;
+      const regex = /^0+[1-9]\d*$/;
+      if (regex.test(id)) {
+        id = id.split("0").join("");
+      }
+      const findPokemon = await getPokemonById(id);
+
+      const findPokemonResult = allPokemons?.results.filter((d) =>
+        d.name.toLowerCase().includes(findPokemon.name.toLowerCase())
+      );
+
+      data = {
+        count: 1302,
+        next: null,
+        previous: null,
+        results: findPokemonResult || [],
+      };
+
       dispatch(updatePokemonCardsList(data));
     }
 
@@ -281,10 +294,19 @@ const usePokemon = () => {
       await getPokemons(true);
     }
   };
+
+  const getPokemonById = async (id: string) => {
+    try {
+      const response = await axiosInstance.get(`/pokemon/${id}/`);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return {
     getAllPokemons,
     getPokemons,
-    getAllPokemonsDetails,
     getPokemonsDetails,
     getTypeColor,
     getTranslatedType,
@@ -292,6 +314,7 @@ const usePokemon = () => {
     getPokemonDominantColor,
     checkBackgroundBrightness,
     onSearch,
+    getPokemonById,
   };
 };
 
