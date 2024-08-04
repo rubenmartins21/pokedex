@@ -7,8 +7,11 @@ import { useSelector } from "react-redux";
 import { IPokemonInitialStates } from "../../utils/interfaces/Reducers/PokemonList";
 import { useDispatch } from "react-redux";
 import { updatePokemonSearchValue } from "../../store/actionCreators";
+import { useTranslation } from "react-i18next";
 
 const Search: React.FC = () => {
+  const { t } = useTranslation();
+
   const allPokemons = useSelector(
     (state: { pokemons: IPokemonInitialStates }) => state.pokemons.allPokemons
   );
@@ -48,7 +51,7 @@ const Search: React.FC = () => {
               <SearchIcon />
             </InputAdornment>
           }
-          placeholder="Name or number"
+          placeholder={t("homePage.namerOrNumber")}
           inputProps={{ "aria-label": "name or number search" }}
           sx={{
             ml: 1,
@@ -101,7 +104,7 @@ const Search: React.FC = () => {
           marginLeft: "10px",
         }}
       >
-        <IconButton sx={{ color: "white" }} aria-label="add an alarm">
+        <IconButton sx={{ color: "white" }} aria-label="apply filters">
           <TuneIcon />
         </IconButton>
       </Box>

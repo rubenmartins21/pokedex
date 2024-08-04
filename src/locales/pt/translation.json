@@ -1,5 +1,6 @@
 {
   "homePage": {
-    "loadPokemons": "Carregar mais pokemons"
+    "loadPokemons": "Carregar mais pokemons",
+    "namerOrNumber": "Nome ou numero"
   }
 }
