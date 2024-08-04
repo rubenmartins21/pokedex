@@ -13,7 +13,6 @@ import {
 } from "../store/actionCreators";
 import { useDispatch } from "react-redux";
 
-import debounce from "lodash.debounce";
 import { IPokemonInitialStates } from "../utils/interfaces/Reducers/PokemonList";
 import { useSelector } from "react-redux";
 
@@ -25,6 +24,15 @@ const usePokemon = () => {
   const pokemonsCardsList = useSelector(
     (state: { pokemons: IPokemonInitialStates }) =>
       state.pokemons.pokemonsCardsList
+  );
+
+  const searchValue = useSelector(
+    (state: { pokemons: IPokemonInitialStates }) => state.pokemons.searchValue
+  );
+
+  const pokemonsDetails = useSelector(
+    (state: { pokemons: IPokemonInitialStates }) =>
+      state.pokemons.pokemonsDetails
   );
 
   const [pokemonPaletteColor, setPokemonPaletteColor] = useState<
@@ -70,6 +78,7 @@ const usePokemon = () => {
       const { count, next, previous, results } = response.data;
 
       let updatedResults;
+
       if (fromSearchReset) {
         updatedResults = results;
       }
@@ -252,36 +261,25 @@ const usePokemon = () => {
     return luminance > 0.5 ? true : false;
   };
 
-  const handleSearchChange = useCallback(
-    debounce(async (searchValue: string) => {
-      const searchResult = allPokemons?.results.filter((d) =>
-        d.name.toLowerCase().includes(searchValue.toLowerCase())
-      );
+  const onSearch = async () => {
+    const searchResult = allPokemons?.results.filter((d) =>
+      d.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
 
-      const data = {
-        count: 1302,
-        next: null,
-        previous: null,
-        results: searchResult || [],
-      };
+    const data = {
+      count: 1302,
+      next: null,
+      previous: null,
+      results: searchResult || [],
+    };
 
-      if (searchValue.length > 0 && data) {
-        dispatch(updatePokemonCardsList(data));
-      }
+    if (searchValue.length > 0 && data) {
+      dispatch(updatePokemonCardsList(data));
+    }
 
-      if (searchValue.length === 0) {
-        const fromSearchReset = true;
-
-        await getPokemons(fromSearchReset);
-      }
-    }, 300),
-    [dispatch, allPokemons, pokemonsCardsList]
-  );
-
-  const onSearchChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    handleSearchChange(e.target.value);
+    if (searchValue.length === 0) {
+      await getPokemons(true);
+    }
   };
   return {
     getAllPokemons,
@@ -293,7 +291,7 @@ const usePokemon = () => {
     getPokemonPaletteColor,
     getPokemonDominantColor,
     checkBackgroundBrightness,
-    onSearchChange,
+    onSearch,
   };
 };
 

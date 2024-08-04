@@ -4,6 +4,7 @@ export interface IPokemonInitialStates {
   pokemonsCardsList: IAllPokemons | null;
   allPokemons: IAllPokemons | null;
   pokemonsDetails: IPokemon[] | null;
+  searchValue: string;
 }
 
 export interface IPokemonListAction {
@@ -11,4 +12,5 @@ export interface IPokemonListAction {
   pokemonsCardsList: IAllPokemons | null;
   allPokemons: IAllPokemons | null;
   pokemonsDetails: IPokemon[] | null;
+  searchValue: string;
 }

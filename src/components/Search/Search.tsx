@@ -5,18 +5,22 @@ import TuneIcon from "@mui/icons-material/Tune";
 import usePokemon from "../../hooks/usePokemon";
 import { useSelector } from "react-redux";
 import { IPokemonInitialStates } from "../../utils/interfaces/Reducers/PokemonList";
+import { useDispatch } from "react-redux";
+import { updatePokemonSearchValue } from "../../store/actionCreators";
 
 const Search: React.FC = () => {
   const allPokemons = useSelector(
     (state: { pokemons: IPokemonInitialStates }) => state.pokemons.allPokemons
   );
-  const { getAllPokemons, onSearchChange } = usePokemon();
+  const { getAllPokemons, onSearch } = usePokemon();
+
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     if (!allPokemons) {
       getAllPokemons();
     }
-  }, []);
+  }, [allPokemons]);
 
   return (
     <Box
@@ -75,8 +79,14 @@ const Search: React.FC = () => {
               justifyContent: "center",
             },
           }}
-          onKeyDown={(e) => console.log(e.code)}
-          onChange={onSearchChange}
+          onKeyDown={(e) => {
+            if (e.code == "Enter") {
+              onSearch();
+            }
+          }}
+          onChange={(e) => {
+            dispatch(updatePokemonSearchValue(e.target.value));
+          }}
         />
       </Box>
       <Box

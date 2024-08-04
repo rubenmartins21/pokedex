@@ -15,3 +15,8 @@ export const updatePokemonsDetails = (pokemonsDetails: IPokemon[]) => ({
   type: actionTypes.UPDATE_POKEMON_DETAILS,
   pokemonsDetails,
 });
+
+export const updatePokemonSearchValue = (searchValue: string) => ({
+  type: actionTypes.UPDATE_POKEMON_SEARCH_VALUE,
+  searchValue,
+});
