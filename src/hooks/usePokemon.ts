@@ -61,7 +61,7 @@ const usePokemon = () => {
     try {
       let apiUrl = "/pokemon/";
 
-      if (pokemonsCardsList && pokemonsCardsList.next) {
+      if (pokemonsCardsList && pokemonsCardsList.next && !fromSearchReset) {
         const nextUrlSegment = pokemonsCardsList.next.split("/")[6];
         apiUrl = `/pokemon/${nextUrlSegment}/`;
       }

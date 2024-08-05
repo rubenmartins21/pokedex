@@ -15,6 +15,12 @@ const Search: React.FC = () => {
   const allPokemons = useSelector(
     (state: { pokemons: IPokemonInitialStates }) => state.pokemons.allPokemons
   );
+
+  const pokemonsCardsList = useSelector(
+    (state: { pokemons: IPokemonInitialStates }) =>
+      state.pokemons.pokemonsCardsList
+  );
+
   const { getAllPokemons, onSearch } = usePokemon();
 
   const dispatch = useDispatch();
