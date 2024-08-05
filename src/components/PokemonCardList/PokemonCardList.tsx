@@ -65,7 +65,7 @@ const PokemonCardList: React.FC = () => {
                 lg: 2,
                 xl: 2,
               }}
-              columns={{ xs: 2, sm: 12, md: 12, xl: 12 }}
+              columns={{ xs: 2, sm: 12, md: 12, xl: 12, lg: 12 }}
             >
               {pokemonsCardsList?.results.map((pokemon, index) => (
                 <Grid
@@ -73,6 +73,11 @@ const PokemonCardList: React.FC = () => {
                   xs={1}
                   sm={4}
                   md={3}
+                  lg={
+                    pokemonsCardsList?.results.length < 4
+                      ? 12 / pokemonsCardsList?.results.length
+                      : 3
+                  }
                   xl={
                     pokemonsCardsList?.results.length < 4
                       ? 12 / pokemonsCardsList?.results.length
