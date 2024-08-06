@@ -276,8 +276,8 @@ const usePokemon = () => {
       }
       const findPokemon = await getPokemonById(id);
 
-      const findPokemonResult = allPokemons?.results.filter((d) =>
-        d.name.toLowerCase().includes(findPokemon.name.toLowerCase())
+      const findPokemonResult = allPokemons?.results.filter(
+        (d) => d.name.toLowerCase() === findPokemon.name.toLowerCase()
       );
 
       data = {
