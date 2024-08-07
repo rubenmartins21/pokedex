@@ -1,8 +1,8 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
 
-const PokemonTypesFilter: React.FC = () => {
-  const items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"];
+const GenerationFilter: React.FC = () => {
+  const items = ["Item 1", "Item 2", "Item 3"];
   const generateGrid = () => {
     const rows = [];
     let rowIndex = 0;
@@ -38,4 +38,4 @@ const PokemonTypesFilter: React.FC = () => {
   );
 };
 
-export default PokemonTypesFilter;
+export default GenerationFilter;

@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   IconButton,
   InputAdornment,
   InputBase,
@@ -14,6 +15,8 @@ import { IPokemonInitialStates } from "../../utils/interfaces/Reducers/PokemonLi
 import { useDispatch } from "react-redux";
 import { updatePokemonSearchValue } from "../../store/actionCreators";
 import { useTranslation } from "react-i18next";
+import PokemonTypesFilter from "../PokemonTypesFilter/PokemonTypesFilter";
+import GenerationFilter from "../GenerationFilter/GenerationFilter";
 
 const Search: React.FC = () => {
   const { t } = useTranslation();
@@ -135,45 +138,66 @@ const Search: React.FC = () => {
           <Box
             sx={{
               display: "flex",
-              justifyContent: "space-between",
-              flexDirection: "row",
-              width: "250px",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
             }}
           >
-            <Typography
-              onClick={() => setFilterSection("type")}
+            <Box
               sx={{
-                fontFamily: "Istok Web",
-                fontStyle: "normal",
-                fontWeight: 700,
-                fontSize: "20px",
-                lineHeight: "29px",
                 display: "flex",
-                alignItems: "center",
-                textalign: "center",
-                color: filterSection === "type" ? "#3A2F66" : "#8D99D6",
-                cursor: "pointer",
+                justifyContent: "space-between",
+                flexDirection: "row",
+                width: "200px",
               }}
             >
-              Type
-            </Typography>
-            <Typography
-              onClick={() => setFilterSection("generation")}
-              sx={{
-                fontFamily: "Istok Web",
-                fontStyle: "normal",
-                fontWeight: 700,
-                fontSize: "20px",
-                lineHeight: "29px",
-                display: "flex",
-                alignItems: "center",
-                textalign: "center",
-                color: filterSection === "generation" ? "#3A2F66" : "#8D99D6",
-                cursor: "pointer",
-              }}
-            >
-              Generation
-            </Typography>
+              <Button
+                variant="text"
+                onClick={() => setFilterSection("type")}
+                sx={{
+                  fontFamily: "Istok Web",
+                  fontStyle: "normal",
+                  fontWeight: 700,
+                  fontSize: "20px",
+                  lineHeight: "29px",
+                  display: "flex",
+                  alignItems: "center",
+                  textalign: "center",
+                  textTransform: "none",
+                  color: filterSection === "type" ? "#3A2F66" : "#8D99D6",
+                  cursor: "pointer",
+                }}
+              >
+                {" "}
+                Type
+              </Button>
+
+              <Button
+                variant="text"
+                onClick={() => setFilterSection("generation")}
+                sx={{
+                  fontFamily: "Istok Web",
+                  fontStyle: "normal",
+                  fontWeight: 700,
+                  fontSize: "20px",
+                  lineHeight: "29px",
+                  display: "flex",
+                  alignItems: "center",
+                  textalign: "center",
+                  textTransform: "none",
+                  color: filterSection === "generation" ? "#3A2F66" : "#8D99D6",
+                  cursor: "pointer",
+                }}
+              >
+                {" "}
+                Generation
+              </Button>
+            </Box>
+
+            {filterSection === "type" && <PokemonTypesFilter />}
+
+            {filterSection === "generation" && <GenerationFilter />}
           </Box>
         </Box>
       )}

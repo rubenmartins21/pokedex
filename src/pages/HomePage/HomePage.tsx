@@ -17,6 +17,7 @@ const HomePage: React.FC = () => {
           textAlign: "center",
           color: "#3A2F66",
           marginTop: "30px",
+          textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
         }}
       >
         Pokédex
