@@ -4,7 +4,6 @@ import {
   IconButton,
   InputAdornment,
   InputBase,
-  Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
@@ -16,7 +15,7 @@ import { useDispatch } from "react-redux";
 import { updatePokemonSearchValue } from "../../store/actionCreators";
 import { useTranslation } from "react-i18next";
 import PokemonTypesFilter from "../PokemonTypesFilter/PokemonTypesFilter";
-import GenerationFilter from "../GenerationFilter/GenerationFilter";
+import RegionsFilter from "../RegionFilter/RegionFilter";
 
 const Search: React.FC = () => {
   const { t } = useTranslation();
@@ -141,7 +140,8 @@ const Search: React.FC = () => {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              width: "100%",
+              width: "30%",
+              marginBottom: "100px",
             }}
           >
             <Box
@@ -150,6 +150,7 @@ const Search: React.FC = () => {
                 justifyContent: "space-between",
                 flexDirection: "row",
                 width: "200px",
+                marginBottom: "20px",
               }}
             >
               <Button
@@ -169,13 +170,12 @@ const Search: React.FC = () => {
                   cursor: "pointer",
                 }}
               >
-                {" "}
-                Type
+                {t("homePage.type")}
               </Button>
 
               <Button
                 variant="text"
-                onClick={() => setFilterSection("generation")}
+                onClick={() => setFilterSection("region")}
                 sx={{
                   fontFamily: "Istok Web",
                   fontStyle: "normal",
@@ -186,18 +186,17 @@ const Search: React.FC = () => {
                   alignItems: "center",
                   textalign: "center",
                   textTransform: "none",
-                  color: filterSection === "generation" ? "#3A2F66" : "#8D99D6",
+                  color: filterSection === "region" ? "#3A2F66" : "#8D99D6",
                   cursor: "pointer",
                 }}
               >
-                {" "}
-                Generation
+                {t("homePage.area")}
               </Button>
             </Box>
 
             {filterSection === "type" && <PokemonTypesFilter />}
 
-            {filterSection === "generation" && <GenerationFilter />}
+            {filterSection === "region" && <RegionsFilter />}
           </Box>
         </Box>
       )}

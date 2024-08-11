@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axiosInstance from "../utils/api/axiosInstance";
-import { typesColors } from "../utils/constants";
+import { regionsColors, typesColors } from "../utils/constants";
 import axios from "axios";
 import ColorThief, { Color } from "colorthief";
 import { IPokemonPaletteColor } from "../utils/interfaces/Pokemon/PokemonColor";
@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 
 import { IPokemonInitialStates } from "../utils/interfaces/Reducers/PokemonList";
 import { useSelector } from "react-redux";
+import { IApiResource } from "../utils/interfaces/Utility/ApiResourceList";
 
 const usePokemon = () => {
   const allPokemons = useSelector(
@@ -110,6 +111,12 @@ const usePokemon = () => {
     const typeData = typesColors.find((item) => item.name === type);
 
     return typeData?.color;
+  };
+
+  const getRegionColor = (region: string) => {
+    const regionData = regionsColors.find((item) => item.name === region);
+
+    return regionData?.color;
   };
 
   const getTranslatedType = (type: string, lang: string) => {
@@ -304,6 +311,33 @@ const usePokemon = () => {
       console.log(error);
     }
   };
+
+  const getAllPokemonsTypes = async () => {
+    try {
+      const response = await axiosInstance.get("/type/");
+
+      const filtered = response.data.results.filter(
+        (item: IApiResource) =>
+          item.name !== "stellar" && item.name !== "unknown"
+      );
+
+      response.data.results = filtered;
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getAllRegions = async () => {
+    try {
+      const response = await axiosInstance.get("/region/");
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return {
     getAllPokemons,
     getPokemons,
@@ -315,6 +349,9 @@ const usePokemon = () => {
     checkBackgroundBrightness,
     onSearch,
     getPokemonById,
+    getAllPokemonsTypes,
+    getAllRegions,
+    getRegionColor,
   };
 };
 

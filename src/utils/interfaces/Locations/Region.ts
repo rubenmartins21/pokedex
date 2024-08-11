@@ -6,11 +6,17 @@ import { INamedApiResource } from "../Utility/NamedApiResourceList";
 import { ILocation } from "./Location";
 
 export interface IRegion {
-    id: number;
-    locations: Array<INamedApiResource<ILocation>>;
-    name: string;
-    names: IName[];
-    main_generation: INamedApiResource<IGeneration>;
-    pokedexes: Array<INamedApiResource<IPokedex>>;
-    version_groups: Array<INamedApiResource<IVersionGroup>>;
+  id: number;
+  locations: Array<INamedApiResource<ILocation>>;
+  name: string;
+  names: IName[];
+  main_generation: INamedApiResource<IGeneration>;
+  pokedexes: Array<INamedApiResource<IPokedex>>;
+  version_groups: Array<INamedApiResource<IVersionGroup>>;
+}
+
+export interface IRegionColor {
+  id: number;
+  name: string;
+  color: string;
 }

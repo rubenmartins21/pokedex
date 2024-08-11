@@ -1,6 +1,8 @@
 {
   "homePage": {
     "loadPokemons": "Carregar mais pokemons",
-    "namerOrNumber": "Nome ou numero"
+    "namerOrNumber": "Nome ou numero",
+    "type": "Tipo",
+    "area": "Região"
   }
 }

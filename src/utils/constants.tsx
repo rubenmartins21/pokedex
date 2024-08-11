@@ -1,3 +1,4 @@
+import { IRegionColor } from "./interfaces/Locations/Region";
 import { ITypeColor } from "./interfaces/Pokemon/Type";
 
 export const typesColors: ITypeColor[] = [
@@ -127,5 +128,59 @@ export const typesColors: ITypeColor[] = [
     name: "shadow",
     translation_pt: "sombrio",
     color: "none",
+  },
+];
+
+export const regionsColors: IRegionColor[] = [
+  {
+    id: 1,
+    name: "kanto",
+    color: "#63BD31",
+  },
+
+  {
+    id: 2,
+    name: "johto",
+    color: "#D1C130",
+  },
+  {
+    id: 3,
+    name: "hoenn",
+    color: "#4ABCA2",
+  },
+  {
+    id: 4,
+    name: "sinnoh",
+    color: "#6C4D6B",
+  },
+  {
+    id: 5,
+    name: "unova",
+    color: "#50ADCD",
+  },
+  {
+    id: 6,
+    name: "kalos",
+    color: "#E70047",
+  },
+  {
+    id: 7,
+    name: "alola",
+    color: "#E8553D",
+  },
+  {
+    id: 8,
+    name: "galar",
+    color: "#BE3290",
+  },
+  {
+    id: 9,
+    name: "hisui",
+    color: "#E8553D",
+  },
+  {
+    id: 10,
+    name: "paldea",
+    color: "#BE3290",
   },
 ];

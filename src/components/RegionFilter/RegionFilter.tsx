@@ -1,21 +1,17 @@
 import { Button, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import usePokemon from "../../hooks/usePokemon";
-import { useTranslation } from "react-i18next";
 import { IApiResourceList } from "../../utils/interfaces/Utility/ApiResourceList";
+const RegionsFilter: React.FC = () => {
+  const [allRegions, setAllRegions] = useState<IApiResourceList>();
 
-const PokemonTypesFilter: React.FC = () => {
-  const [allTypes, setAllTypes] = useState<IApiResourceList>();
-
-  const { getAllPokemonsTypes, getTranslatedType, getTypeColor } = usePokemon();
-
-  const { i18n } = useTranslation();
-  const currentLanguage = i18n.language;
+  const { getAllRegions, getRegionColor } = usePokemon();
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getAllPokemonsTypes();
-      setAllTypes(data);
+      const data = await getAllRegions();
+
+      setAllRegions(data);
     };
 
     fetchData();
@@ -31,16 +27,16 @@ const PokemonTypesFilter: React.FC = () => {
         lg: 5,
         xl: 5,
       }}
-      columns={{ xs: 12, sm: 12, md: 12, xl: 12, lg: 12 }}
+      columns={{ xs: 10, sm: 10, md: 10, xl: 10, lg: 10 }}
     >
-      {allTypes?.results.map((item, index) => (
-        <Grid item xs={4} sm={4} md={4} xl={4} lg={4} key={index}>
+      {allRegions?.results.map((item, index) => (
+        <Grid item xs={2} sm={2} md={2} xl={2} lg={2} key={index}>
           <Button
             sx={{
               position: "absolute",
               width: "89px",
               height: "22px",
-              background: `${getTypeColor(item.name)}`,
+              background: `${getRegionColor(item.name)}`,
               borderRadius: "7px",
               textTransform: "none",
               fontFamily: "Istok Web",
@@ -53,11 +49,11 @@ const PokemonTypesFilter: React.FC = () => {
               textAlign: "center",
               color: "#FFFFFF",
               "&.MuiButtonBase-root:hover": {
-                background: `${getTypeColor(item.name)}`,
+                background: `${getRegionColor(item.name)}`,
               },
             }}
           >
-            {getTranslatedType(item.name, currentLanguage)}
+            {item.name}
           </Button>
         </Grid>
       ))}
@@ -65,4 +61,4 @@ const PokemonTypesFilter: React.FC = () => {
   );
 };
 
-export default PokemonTypesFilter;
+export default RegionsFilter;
