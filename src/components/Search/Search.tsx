@@ -70,9 +70,22 @@ const Search: React.FC = () => {
             sx={{
               ml: 1,
               flex: 1,
-              width: "599.43px",
+              width: {
+                xs: "300px",
+                sm: "500px",
+                md: "500px",
+                lg: "599.43px",
+                xl: "599.43px",
+              },
               height: "35.18px",
-              background: "#EDEEF3",
+              // background: "#EDEEF3",
+              background: {
+                xs: "red",
+                sm: "brown",
+                md: "green",
+                lg: "violet",
+                xl: "rose",
+              },
               borderRadius: "7px",
               display: "flex",
               alignItems: "center",
@@ -140,8 +153,15 @@ const Search: React.FC = () => {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              width: "30%",
+              width: {
+                xs: "30%",
+                sm: "30%",
+                md: "30%",
+                lg: "30%",
+                xl: "30%",
+              },
               marginBottom: "100px",
+              background: "red",
             }}
           >
             <Box

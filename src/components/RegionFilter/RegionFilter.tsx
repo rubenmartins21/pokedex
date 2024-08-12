@@ -23,7 +23,7 @@ const RegionsFilter: React.FC = () => {
       spacing={{
         xs: 5,
         sm: 5,
-        md: 5,
+        md: 12,
         lg: 5,
         xl: 5,
       }}

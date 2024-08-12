@@ -338,6 +338,16 @@ const usePokemon = () => {
       console.log(error);
     }
   };
+
+  const getAllPokemonsByTypeId = async (id: number) => {
+    try {
+      const response = await axiosInstance.get(`/type/${id}`);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return {
     getAllPokemons,
     getPokemons,
@@ -352,6 +362,7 @@ const usePokemon = () => {
     getAllPokemonsTypes,
     getAllRegions,
     getRegionColor,
+    getAllPokemonsByTypeId,
   };
 };
 
