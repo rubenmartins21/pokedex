@@ -107,10 +107,10 @@ const usePokemon = () => {
     return response.data;
   };
 
-  const getTypeColor = (type: string) => {
+  const getTypeConstant = (type: string) => {
     const typeData = typesColors.find((item) => item.name === type);
 
-    return typeData?.color;
+    return typeData;
   };
 
   const getRegionColor = (region: string) => {
@@ -343,7 +343,7 @@ const usePokemon = () => {
     try {
       const response = await axiosInstance.get(`/type/${id}`);
 
-      return response.data;
+      return response.data.pokemon;
     } catch (error) {
       console.log(error);
     }
@@ -352,7 +352,7 @@ const usePokemon = () => {
     getAllPokemons,
     getPokemons,
     getPokemonsDetails,
-    getTypeColor,
+    getTypeConstant,
     getTranslatedType,
     getPokemonPaletteColor,
     getPokemonDominantColor,

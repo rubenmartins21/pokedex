@@ -14,7 +14,7 @@ export interface PokemonCardProps {
 const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
   const {
     getPokemonsDetails,
-    getTypeColor,
+    getTypeConstant,
     getTranslatedType,
     getPokemonPaletteColor,
     getPokemonDominantColor,
@@ -256,7 +256,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
                 >
                   <Box
                     sx={{
-                      background: `${getTypeColor(item.type.name)}`,
+                      background: `${getTypeConstant(item.type.name)?.color}`,
                       width: "64.46px",
                       height: "20.64px",
                       display: {
@@ -357,7 +357,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
               <Grid item xs={6} sm={3} md={2} key={index}>
                 <Box
                   sx={{
-                    background: `${getTypeColor(item.type.name)}`,
+                    background: `${getTypeConstant(item.type.name)?.color}`,
                     width: "64.46px",
                     height: "20.64px",
                     display: {

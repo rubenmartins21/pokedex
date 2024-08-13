@@ -23,14 +23,14 @@ const RegionsFilter: React.FC = () => {
       spacing={{
         xs: 5,
         sm: 5,
-        md: 12,
+        md: 5,
         lg: 5,
         xl: 5,
       }}
-      columns={{ xs: 10, sm: 10, md: 10, xl: 10, lg: 10 }}
+      columns={{ xs: 12, sm: 10, md: 10, xl: 10, lg: 10 }}
     >
       {allRegions?.results.map((item, index) => (
-        <Grid item xs={2} sm={2} md={2} xl={2} lg={2} key={index}>
+        <Grid item xs={4} sm={2} md={2} xl={2} lg={2} key={index}>
           <Button
             sx={{
               position: "absolute",
