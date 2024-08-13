@@ -5,7 +5,10 @@ import { useTranslation } from "react-i18next";
 import { IApiResourceList } from "../../utils/interfaces/Utility/ApiResourceList";
 import { ITypePokemon } from "../../utils/interfaces/Pokemon/Type";
 import { useDispatch } from "react-redux";
-import { updatePokemonCardsList } from "../../store/actionCreators";
+import {
+  setIsLoading,
+  updatePokemonCardsList,
+} from "../../store/actionCreators";
 
 const PokemonTypesFilter: React.FC = () => {
   const [allTypes, setAllTypes] = useState<IApiResourceList>();
@@ -25,6 +28,7 @@ const PokemonTypesFilter: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllPokemonsTypes();
+
       setAllTypes(data);
     };
 
@@ -32,6 +36,7 @@ const PokemonTypesFilter: React.FC = () => {
   }, []);
 
   const handleTypeClick = async (name: string) => {
+    dispatch(setIsLoading(true));
     const typeConstant = getTypeConstant(name);
 
     if (typeConstant) {
@@ -40,10 +45,6 @@ const PokemonTypesFilter: React.FC = () => {
       const typeResults = pokemonsByType.map(
         (item: ITypePokemon) => item.pokemon
       );
-
-      console.log(typeResults);
-
-      console.log(pokemonsByType);
 
       const data = {
         count: pokemonsByType.length,
@@ -54,6 +55,7 @@ const PokemonTypesFilter: React.FC = () => {
 
       if (data) {
         dispatch(updatePokemonCardsList(data));
+        dispatch(setIsLoading(false));
       }
     }
   };

@@ -15,3 +15,8 @@ export const updatePokemonSearchValue = (searchValue: string) => ({
   type: actionTypes.UPDATE_POKEMON_SEARCH_VALUE,
   searchValue,
 });
+
+export const setIsLoading = (loading: boolean) => ({
+  type: actionTypes.SET_IS_LOADING,
+  loading,
+});

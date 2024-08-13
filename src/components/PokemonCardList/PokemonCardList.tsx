@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { Box, Button, CircularProgress, Grid } from "@mui/material";
 import usePokemon from "../../hooks/usePokemon";
 import PokemonCard from "../PokemonCard/PokemonCard";
 import { useSelector } from "react-redux";
 import { IPokemonInitialStates } from "../../utils/interfaces/Reducers/PokemonList";
+import { useDispatch } from "react-redux";
+import { setIsLoading } from "../../store/actionCreators";
 
 const PokemonCardList: React.FC = () => {
   const { t } = useTranslation();
@@ -12,21 +14,25 @@ const PokemonCardList: React.FC = () => {
     (state: { pokemons: IPokemonInitialStates }) =>
       state.pokemons.pokemonsCardsList
   );
+
+  const isLoading = useSelector(
+    (state: { pokemons: IPokemonInitialStates }) => state.pokemons.isLoading
+  );
   const { getPokemons } = usePokemon();
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const dispatch = useDispatch();
+
   const fetchAllPokemonsData = async () => {
     if (isLoading) return;
 
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
 
     try {
-      const fromSearchReset = false;
-      await getPokemons(fromSearchReset);
+      await getPokemons(false);
     } catch (error) {
       console.error("Failed to fetch Pokémon data:", error);
     } finally {
-      setIsLoading(false);
+      dispatch(setIsLoading(false));
     }
   };
 
@@ -54,7 +60,7 @@ const PokemonCardList: React.FC = () => {
           width: "75%",
         }}
       >
-        {pokemonsCardsList?.results && (
+        {!isLoading && pokemonsCardsList?.results && (
           <Box sx={{ flexGrow: 1, marginTop: "20px" }}>
             <Grid
               container

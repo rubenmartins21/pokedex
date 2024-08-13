@@ -3,6 +3,7 @@ import {
   UPDATE_POKEMON_CARDS_LIST,
   UPDATE_ALL_POKEMON_LIST,
   UPDATE_POKEMON_SEARCH_VALUE,
+  SET_IS_LOADING,
 } from "./actionTypes";
 import {
   IPokemonInitialStates,
@@ -13,6 +14,7 @@ const initialState: IPokemonInitialStates = {
   pokemonsCardsList: null,
   allPokemons: null,
   searchValue: "",
+  isLoading: false,
 };
 
 const pokemonReducer = (state = initialState, action: IPokemonListAction) => {
@@ -33,6 +35,12 @@ const pokemonReducer = (state = initialState, action: IPokemonListAction) => {
       return {
         ...state,
         searchValue: action.searchValue,
+      };
+
+    case SET_IS_LOADING:
+      return {
+        ...state,
+        isLoading: action.isLoading,
       };
     default:
       return state;
