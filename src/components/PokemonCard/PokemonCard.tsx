@@ -3,7 +3,7 @@ import {
   IAllPokemonsResults,
   IPokemon,
 } from "../../utils/interfaces/Pokemon/Pokemon";
-import { Avatar, Box, Grid, Typography } from "@mui/material";
+import { Avatar, Box, CircularProgress, Grid, Typography } from "@mui/material";
 import usePokemon from "../../hooks/usePokemon";
 import { useTranslation } from "react-i18next";
 
@@ -26,6 +26,26 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
   const [pokemonData, setPokemonData] = useState<IPokemon>();
 
   const [cardBackground, setCardBackground] = useState<string>("#BFDFCC");
+
+  const [imgLoaded, setImgLoaded] = useState(false);
+
+  useEffect(() => {
+    const loadImage = async () => {
+      if (!pokemonData) return;
+
+      const loadImg = new Image();
+      loadImg.src = pokemonData.sprites.other["official-artwork"].front_default;
+
+      try {
+        await new Promise((resolve) => (loadImg.onload = resolve));
+        setImgLoaded(true);
+      } catch (err) {
+        console.error("Failed to load image", err);
+      }
+    };
+
+    loadImage();
+  }, [pokemonData]);
 
   const fecthData = async () => {
     const response = await getPokemonsDetails(pokemon.url);
@@ -130,38 +150,60 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
               },
             }}
           >
-            <Avatar
-              alt="pokemon logo"
-              src={pokemonData.sprites.other["official-artwork"].front_default}
-              sx={{
-                borderRadius: "0",
-                alignItems: "center",
-                "& img": {
-                  objectFit: {
-                    xs: "contain",
-                    sm: "contain",
-                    md: "contain",
-                    lg: "fill",
-                    xl: "fill",
-                  },
-                },
+            {!imgLoaded && (
+              <Box
+                sx={{
+                  width: "100%",
+                  marginLeft: "20%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <CircularProgress
+                  sx={{
+                    color: "#726B8F",
+                  }}
+                />
+              </Box>
+            )}
 
-                width: {
-                  xs: "100%",
-                  sm: "100%",
-                  md: "100%",
-                  lg: "100%",
-                  xl: "100%",
-                },
-                height: {
-                  xs: "50%",
-                  sm: "50%",
-                  md: "50%",
-                  lg: "100%",
-                  xl: "100%",
-                },
-              }}
-            />
+            {imgLoaded && (
+              <Avatar
+                alt="pokemon logo"
+                src={
+                  pokemonData.sprites.other["official-artwork"].front_default
+                }
+                sx={{
+                  borderRadius: "0",
+                  alignItems: "center",
+                  "& img": {
+                    objectFit: {
+                      xs: "contain",
+                      sm: "contain",
+                      md: "contain",
+                      lg: "fill",
+                      xl: "fill",
+                    },
+                  },
+
+                  width: {
+                    xs: "100%",
+                    sm: "100%",
+                    md: "100%",
+                    lg: "100%",
+                    xl: "100%",
+                  },
+                  height: {
+                    xs: "50%",
+                    sm: "50%",
+                    md: "50%",
+                    lg: "100%",
+                    xl: "100%",
+                  },
+                }}
+              />
+            )}
 
             <Box
               sx={{
