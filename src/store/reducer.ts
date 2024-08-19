@@ -4,6 +4,7 @@ import {
   UPDATE_ALL_POKEMON_LIST,
   UPDATE_POKEMON_SEARCH_VALUE,
   SET_IS_LOADING,
+  SET_IS_FILTERING,
 } from "./actionTypes";
 import {
   IPokemonInitialStates,
@@ -15,6 +16,7 @@ const initialState: IPokemonInitialStates = {
   allPokemons: null,
   searchValue: "",
   isLoading: false,
+  filter: null,
 };
 
 const pokemonReducer = (state = initialState, action: IPokemonListAction) => {
@@ -41,6 +43,12 @@ const pokemonReducer = (state = initialState, action: IPokemonListAction) => {
       return {
         ...state,
         isLoading: action.isLoading,
+      };
+
+    case SET_IS_FILTERING:
+      return {
+        ...state,
+        filter: action.filter,
       };
     default:
       return state;

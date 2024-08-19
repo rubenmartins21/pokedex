@@ -1,3 +1,4 @@
+import { IFilter } from "../utils/interfaces/Filter/Filter";
 import { IAllPokemons } from "../utils/interfaces/Pokemon/Pokemon";
 import * as actionTypes from "./actionTypes";
 
@@ -19,4 +20,9 @@ export const updatePokemonSearchValue = (searchValue: string) => ({
 export const setIsLoading = (loading: boolean) => ({
   type: actionTypes.SET_IS_LOADING,
   loading,
+});
+
+export const setIsFiltering = (filter: IFilter) => ({
+  type: actionTypes.SET_IS_FILTERING,
+  filter,
 });

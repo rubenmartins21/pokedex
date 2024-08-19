@@ -10,6 +10,11 @@ import { setIsLoading } from "../../store/actionCreators";
 
 const PokemonCardList: React.FC = () => {
   const { t } = useTranslation();
+
+  const filter = useSelector(
+    (state: { pokemons: IPokemonInitialStates }) => state.pokemons.filter
+  );
+
   const pokemonsCardsList = useSelector(
     (state: { pokemons: IPokemonInitialStates }) =>
       state.pokemons.pokemonsCardsList
@@ -18,7 +23,7 @@ const PokemonCardList: React.FC = () => {
   const isLoading = useSelector(
     (state: { pokemons: IPokemonInitialStates }) => state.pokemons.isLoading
   );
-  const { getPokemons } = usePokemon();
+  const { getPokemons, handleFilterTypeClick } = usePokemon();
 
   const dispatch = useDispatch();
 
@@ -41,7 +46,13 @@ const PokemonCardList: React.FC = () => {
   }, []);
 
   const handleLoadClick = async () => {
-    fetchAllPokemonsData();
+    if (!filter) {
+      fetchAllPokemonsData();
+    } else {
+      if (filter.filterType) {
+        handleFilterTypeClick(filter.filterType);
+      }
+    }
   };
 
   return (

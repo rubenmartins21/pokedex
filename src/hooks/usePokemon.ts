@@ -8,14 +8,21 @@ import { IPokemonPaletteColor } from "../utils/interfaces/Pokemon/PokemonColor";
 import {
   updatePokemonCardsList,
   updateAllPokemonsList,
+  setIsLoading,
+  setIsFiltering,
 } from "../store/actionCreators";
 import { useDispatch } from "react-redux";
 
 import { IPokemonInitialStates } from "../utils/interfaces/Reducers/PokemonList";
 import { useSelector } from "react-redux";
 import { IApiResource } from "../utils/interfaces/Utility/ApiResourceList";
+import { ITypePokemon } from "../utils/interfaces/Pokemon/Type";
 
 const usePokemon = () => {
+  const filter = useSelector(
+    (state: { pokemons: IPokemonInitialStates }) => state.pokemons.filter
+  );
+
   const allPokemons = useSelector(
     (state: { pokemons: IPokemonInitialStates }) => state.pokemons.allPokemons
   );
@@ -348,6 +355,57 @@ const usePokemon = () => {
       console.log(error);
     }
   };
+
+  const handleFilterTypeClick = async (name: string) => {
+    dispatch(setIsLoading(true));
+    const typeConstant = getTypeConstant(name);
+
+    if (typeConstant) {
+      const pokemonsByType = await getAllPokemonsByTypeId(typeConstant.id);
+
+      let typeResults;
+
+      if (!filter) {
+        const filterData = {
+          filterType: name,
+          pokemonsCount: 20,
+        };
+
+        typeResults = pokemonsByType
+          .slice(0, 20)
+          .map((item: ITypePokemon) => item.pokemon);
+
+        dispatch(setIsFiltering(filterData));
+      }
+
+      if (filter) {
+        const filterData = {
+          filterType: filter.filterType,
+          pokemonsCount:
+            filter.filterType !== name ? 20 : filter.pokemonsCount + 20,
+        };
+
+        typeResults = pokemonsByType
+          .slice(0, filterData.pokemonsCount)
+          .map((item: ITypePokemon) => item.pokemon);
+
+        dispatch(setIsFiltering(filterData));
+      }
+
+      const data = {
+        count: pokemonsByType.length,
+        next: null,
+        previous: null,
+        results: typeResults || [],
+      };
+
+      if (data) {
+        dispatch(updatePokemonCardsList(data));
+        dispatch(setIsLoading(false));
+      }
+    }
+  };
+
   return {
     getAllPokemons,
     getPokemons,
@@ -363,6 +421,7 @@ const usePokemon = () => {
     getAllRegions,
     getRegionColor,
     getAllPokemonsByTypeId,
+    handleFilterTypeClick,
   };
 };
 
