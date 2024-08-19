@@ -280,6 +280,16 @@ const usePokemon = () => {
       if (searchValue.length > 0 && data) {
         dispatch(updatePokemonCardsList(data));
       }
+
+      if (searchResult) {
+        const filterData = {
+          filterType: "search",
+          pokemonsCount: searchResult.length,
+        };
+
+        dispatch(setIsFiltering(filterData));
+        console.log(filter);
+      }
     }
 
     if (isIdSearch && searchValue.length > 0) {
