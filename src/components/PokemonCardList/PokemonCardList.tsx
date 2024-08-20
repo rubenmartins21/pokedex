@@ -23,7 +23,11 @@ const PokemonCardList: React.FC = () => {
   const isLoading = useSelector(
     (state: { pokemons: IPokemonInitialStates }) => state.pokemons.isLoading
   );
-  const { getPokemons, handleFilterTypeClick } = usePokemon();
+
+  const searchValue = useSelector(
+    (state: { pokemons: IPokemonInitialStates }) => state.pokemons.searchValue
+  );
+  const { getPokemons, handleFilterTypeClick, onSearch } = usePokemon();
 
   const dispatch = useDispatch();
 
@@ -46,11 +50,13 @@ const PokemonCardList: React.FC = () => {
   }, []);
 
   const handleLoadClick = async () => {
-    if (!filter) {
+    if (!filter || searchValue.length === 0) {
       fetchAllPokemonsData();
     } else {
-      if (filter.filterType) {
+      if (filter.filterType && filter.filterType !== "search") {
         handleFilterTypeClick(filter.filterType);
+      } else {
+        onSearch("load");
       }
     }
   };

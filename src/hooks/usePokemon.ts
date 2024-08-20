@@ -261,10 +261,25 @@ const usePokemon = () => {
     return luminance > 0.5 ? true : false;
   };
 
-  const onSearch = async () => {
+  const onSearch = async (from: string) => {
     const isIdSearch = /^\d+$/.test(searchValue);
 
     let data;
+
+    let filterData = {
+      filterType: "search",
+      pokemonsCount: 20,
+    };
+
+    if (filter && from === "load") {
+      filterData = {
+        filterType: "search",
+        pokemonsCount: 20 + filter.pokemonsCount,
+      };
+    }
+
+    dispatch(setIsFiltering(filterData));
+
     if (!isIdSearch) {
       const searchResult = allPokemons?.results.filter((d) =>
         d.name.toLowerCase().includes(searchValue.toLowerCase())
@@ -274,21 +289,11 @@ const usePokemon = () => {
         count: 1302,
         next: null,
         previous: null,
-        results: searchResult || [],
+        results: searchResult?.slice(0, filterData?.pokemonsCount) || [],
       };
 
       if (searchValue.length > 0 && data) {
         dispatch(updatePokemonCardsList(data));
-      }
-
-      if (searchResult) {
-        const filterData = {
-          filterType: "search",
-          pokemonsCount: searchResult.length,
-        };
-
-        dispatch(setIsFiltering(filterData));
-        console.log(filter);
       }
     }
 
@@ -308,7 +313,7 @@ const usePokemon = () => {
         count: 1302,
         next: null,
         previous: null,
-        results: findPokemonResult || [],
+        results: findPokemonResult?.slice(0, filterData?.pokemonsCount) || [],
       };
 
       dispatch(updatePokemonCardsList(data));

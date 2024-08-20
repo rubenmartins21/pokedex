@@ -105,7 +105,7 @@ const Search: React.FC = () => {
             }}
             onKeyDown={(e) => {
               if (e.code == "Enter") {
-                onSearch();
+                onSearch("searchClick");
               }
             }}
             onChange={(e) => {
