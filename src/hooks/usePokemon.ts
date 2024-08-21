@@ -395,7 +395,7 @@ const usePokemon = () => {
 
       if (filter) {
         const filterData = {
-          filterType: filter.filterType,
+          filterType: name,
           pokemonsCount:
             filter.filterType !== name ? 20 : filter.pokemonsCount + 20,
         };
