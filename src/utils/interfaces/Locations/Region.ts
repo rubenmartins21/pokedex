@@ -15,8 +15,13 @@ export interface IRegion {
   version_groups: Array<INamedApiResource<IVersionGroup>>;
 }
 
+export interface IRegionIndex {
+  firstPokemonId: number;
+  lastPokemonId: number;
+}
 export interface IRegionColor {
   id: number;
   name: string;
   color: string;
+  index: IRegionIndex;
 }

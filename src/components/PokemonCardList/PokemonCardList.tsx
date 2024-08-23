@@ -27,7 +27,13 @@ const PokemonCardList: React.FC = () => {
   const searchValue = useSelector(
     (state: { pokemons: IPokemonInitialStates }) => state.pokemons.searchValue
   );
-  const { getPokemons, handleFilterTypeClick, onSearch } = usePokemon();
+  const {
+    getPokemons,
+    handleFilterTypeClick,
+    onSearch,
+    getRegionConstant,
+    handleFilterRegionClick,
+  } = usePokemon();
 
   const dispatch = useDispatch();
 
@@ -50,15 +56,25 @@ const PokemonCardList: React.FC = () => {
   }, []);
 
   const handleLoadClick = async () => {
-    if (!filter || searchValue.length === 0) {
-      fetchAllPokemonsData();
-    } else {
-      if (filter.filterType && filter.filterType !== "search") {
-        handleFilterTypeClick(filter.filterType);
-      } else {
-        onSearch("load");
+    if (!filter && searchValue.length === 0) {
+      return fetchAllPokemonsData();
+    }
+
+    if (filter && filter.filterType) {
+      const { filterType } = filter;
+
+      if (filterType !== "search") {
+        const regionConstant = getRegionConstant(filterType);
+
+        if (!regionConstant) {
+          return handleFilterTypeClick(filterType);
+        }
+
+        return handleFilterRegionClick(filterType);
       }
     }
+
+    onSearch("load");
   };
 
   return (

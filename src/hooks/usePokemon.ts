@@ -120,6 +120,12 @@ const usePokemon = () => {
     return typeData;
   };
 
+  const getRegionConstant = (region: string) => {
+    const regionData = regionsColors.find((item) => item.name === region);
+
+    return regionData;
+  };
+
   const getRegionColor = (region: string) => {
     const regionData = regionsColors.find((item) => item.name === region);
 
@@ -361,7 +367,17 @@ const usePokemon = () => {
     }
   };
 
-  const getAllPokemonsByTypeId = async (id: number) => {
+  const getRegion = async (name: string) => {
+    try {
+      const response = await axiosInstance.get(`/region/${name}`);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getPokemonsByTypeId = async (id: number) => {
     try {
       const response = await axiosInstance.get(`/type/${id}`);
 
@@ -371,17 +387,72 @@ const usePokemon = () => {
     }
   };
 
+  const handleFilterRegionClick = async (name: string) => {
+    try {
+      dispatch(setIsLoading(true));
+      const regionConstant = getRegionConstant(name);
+
+      if (regionConstant) {
+        const first = regionConstant.index.firstPokemonId - 1;
+        const last = regionConstant.index.lastPokemonId;
+        const pokemonsByRegion = allPokemons?.results.slice(first, last);
+
+        if (pokemonsByRegion) {
+          let regionResults;
+          let filterData;
+
+          if (!filter) {
+            filterData = {
+              filterType: name,
+              pokemonsCount: 20,
+            };
+
+            regionResults = pokemonsByRegion.slice(0, 20);
+          }
+
+          if (filter) {
+            filterData = {
+              filterType: name,
+              pokemonsCount:
+                filter.filterType !== name ? 20 : filter.pokemonsCount + 20,
+            };
+
+            regionResults = pokemonsByRegion.slice(0, filterData.pokemonsCount);
+          }
+          if (filterData) {
+            dispatch(setIsFiltering(filterData));
+          }
+          const data = {
+            count: pokemonsByRegion.length,
+            next: null,
+            previous: null,
+            results: regionResults || [],
+          };
+
+          if (data) {
+            dispatch(updatePokemonCardsList(data));
+            dispatch(setIsLoading(false));
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching Pokémon data:", error);
+    }
+  };
+
   const handleFilterTypeClick = async (name: string) => {
     dispatch(setIsLoading(true));
     const typeConstant = getTypeConstant(name);
 
     if (typeConstant) {
-      const pokemonsByType = await getAllPokemonsByTypeId(typeConstant.id);
+      const pokemonsByType = await getPokemonsByTypeId(typeConstant.id);
 
       let typeResults;
 
+      let filterData;
+
       if (!filter) {
-        const filterData = {
+        filterData = {
           filterType: name,
           pokemonsCount: 20,
         };
@@ -389,12 +460,10 @@ const usePokemon = () => {
         typeResults = pokemonsByType
           .slice(0, 20)
           .map((item: ITypePokemon) => item.pokemon);
-
-        dispatch(setIsFiltering(filterData));
       }
 
       if (filter) {
-        const filterData = {
+        filterData = {
           filterType: name,
           pokemonsCount:
             filter.filterType !== name ? 20 : filter.pokemonsCount + 20,
@@ -403,7 +472,8 @@ const usePokemon = () => {
         typeResults = pokemonsByType
           .slice(0, filterData.pokemonsCount)
           .map((item: ITypePokemon) => item.pokemon);
-
+      }
+      if (filterData) {
         dispatch(setIsFiltering(filterData));
       }
 
@@ -426,6 +496,7 @@ const usePokemon = () => {
     getPokemons,
     getPokemonsDetails,
     getTypeConstant,
+    getRegionConstant,
     getTranslatedType,
     getPokemonPaletteColor,
     getPokemonDominantColor,
@@ -435,8 +506,10 @@ const usePokemon = () => {
     getAllPokemonsTypes,
     getAllRegions,
     getRegionColor,
-    getAllPokemonsByTypeId,
+    getPokemonsByTypeId,
     handleFilterTypeClick,
+    getRegion,
+    handleFilterRegionClick,
   };
 };
 

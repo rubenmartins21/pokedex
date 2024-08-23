@@ -136,51 +136,91 @@ export const regionsColors: IRegionColor[] = [
     id: 1,
     name: "kanto",
     color: "#63BD31",
+    index: {
+      firstPokemonId: 1,
+      lastPokemonId: 151,
+    },
   },
 
   {
     id: 2,
     name: "johto",
     color: "#D1C130",
+    index: {
+      firstPokemonId: 152,
+      lastPokemonId: 251,
+    },
   },
   {
     id: 3,
     name: "hoenn",
     color: "#4ABCA2",
+    index: {
+      firstPokemonId: 252,
+      lastPokemonId: 386,
+    },
   },
   {
     id: 4,
     name: "sinnoh",
     color: "#6C4D6B",
+    index: {
+      firstPokemonId: 387,
+      lastPokemonId: 493,
+    },
   },
   {
     id: 5,
     name: "unova",
     color: "#50ADCD",
+    index: {
+      firstPokemonId: 494,
+      lastPokemonId: 649,
+    },
   },
   {
     id: 6,
     name: "kalos",
     color: "#E70047",
+    index: {
+      firstPokemonId: 650,
+      lastPokemonId: 721,
+    },
   },
   {
     id: 7,
     name: "alola",
     color: "#E8553D",
+    index: {
+      firstPokemonId: 722,
+      lastPokemonId: 807,
+    },
   },
   {
     id: 8,
     name: "galar",
     color: "#BE3290",
+    index: {
+      firstPokemonId: 808,
+      lastPokemonId: 898,
+    },
   },
   {
     id: 9,
     name: "hisui",
     color: "#E8553D",
+    index: {
+      firstPokemonId: 899,
+      lastPokemonId: 905,
+    },
   },
   {
     id: 10,
     name: "paldea",
     color: "#BE3290",
+    index: {
+      firstPokemonId: 906,
+      lastPokemonId: 1025,
+    },
   },
 ];

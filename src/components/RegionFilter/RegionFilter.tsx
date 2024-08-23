@@ -5,7 +5,8 @@ import { IApiResourceList } from "../../utils/interfaces/Utility/ApiResourceList
 const RegionsFilter: React.FC = () => {
   const [allRegions, setAllRegions] = useState<IApiResourceList>();
 
-  const { getAllRegions, getRegionColor } = usePokemon();
+  const { getAllRegions, getRegionColor, handleFilterRegionClick } =
+    usePokemon();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +33,7 @@ const RegionsFilter: React.FC = () => {
       {allRegions?.results.map((item, index) => (
         <Grid item xs={4} sm={2} md={2} xl={2} lg={2} key={index}>
           <Button
+            onClick={() => handleFilterRegionClick(item.name)}
             sx={{
               position: "absolute",
               width: "89px",
