@@ -148,7 +148,7 @@ const PokemonCardList: React.FC = () => {
             sx={{
               width: "281px",
               height: "51",
-              borderRadius: "12px",
+              borderRadius: "20px",
               fontFamily: "Istok Web",
               fontStyle: "normal",
               fontWeight: "700",

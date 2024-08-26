@@ -491,6 +491,10 @@ const usePokemon = () => {
     }
   };
 
+  const resetFilter = async () => {
+    await getPokemons(true);
+  };
+
   return {
     getAllPokemons,
     getPokemons,
@@ -510,6 +514,7 @@ const usePokemon = () => {
     handleFilterTypeClick,
     getRegion,
     handleFilterRegionClick,
+    resetFilter,
   };
 };
 

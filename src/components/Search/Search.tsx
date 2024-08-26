@@ -28,7 +28,7 @@ const Search: React.FC = () => {
     (state: { pokemons: IPokemonInitialStates }) => state.pokemons.allPokemons
   );
 
-  const { getAllPokemons, onSearch } = usePokemon();
+  const { getAllPokemons, onSearch, resetFilter } = usePokemon();
 
   const dispatch = useDispatch();
 
@@ -79,7 +79,6 @@ const Search: React.FC = () => {
               },
               height: "35.18px",
               background: "#EDEEF3",
-
               borderRadius: "7px",
               display: "flex",
               alignItems: "center",
@@ -208,9 +207,57 @@ const Search: React.FC = () => {
               </Button>
             </Box>
 
-            {filterSection === "type" && <PokemonTypesFilter />}
+            <Box
+              sx={{
+                width: filterSection === "type" ? "70%" : "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {filterSection === "type" && <PokemonTypesFilter />}
 
-            {filterSection === "region" && <RegionsFilter />}
+              {filterSection === "region" && <RegionsFilter />}
+            </Box>
+
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "40px",
+              }}
+            >
+              <Button
+                variant="outlined"
+                onClick={async () => resetFilter()}
+                sx={{
+                  width: "150px",
+                  height: "35px",
+                  borderRadius: "20px",
+                  fontFamily: "Istok Web",
+                  fontStyle: "normal",
+                  fontWeight: "700",
+                  fontSize: "22px",
+                  lineHeight: "32px",
+                  display: "flex",
+                  alignItems: "center",
+                  color: "#726B8F",
+                  textTransform: "none",
+                  border: "2px solid #726B8F",
+                  marginBottom: "20px",
+                  marginTop: "20px",
+                  "&:hover": {
+                    backgroundColor: "#726B8F",
+                    border: "2px solid #726B8F",
+                    boxShadow: "none",
+                    color: "white",
+                  },
+                }}
+              >
+                Reset
+              </Button>
+            </Box>
           </Box>
         </Box>
       )}
