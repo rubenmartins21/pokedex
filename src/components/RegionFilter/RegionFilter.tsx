@@ -2,11 +2,25 @@ import { Button, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import usePokemon from "../../hooks/usePokemon";
 import { IApiResourceList } from "../../utils/interfaces/Utility/ApiResourceList";
+import { useSelector } from "react-redux";
+import { IPokemonInitialStates } from "../../utils/interfaces/Reducers/PokemonList";
 const RegionsFilter: React.FC = () => {
   const [allRegions, setAllRegions] = useState<IApiResourceList>();
 
-  const { getAllRegions, getRegionColor, handleFilterRegionClick } =
-    usePokemon();
+  const filter = useSelector(
+    (state: { pokemons: IPokemonInitialStates }) => state.pokemons.filter
+  );
+
+  const [clickedRegion, setClickedRegion] = useState<string>(
+    filter?.filterType
+  );
+
+  const {
+    getAllRegions,
+    getRegionColor,
+    handleFilterRegionClick,
+    resetFilter,
+  } = usePokemon();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,13 +47,18 @@ const RegionsFilter: React.FC = () => {
       {allRegions?.results.map((item, index) => (
         <Grid item xs={4} sm={2} md={2} xl={2} lg={2} key={index}>
           <Button
-            onClick={() => handleFilterRegionClick(item.name)}
+            onClick={() => {
+              handleFilterRegionClick(item.name);
+              setClickedRegion(clickedRegion === item.name ? "" : item.name);
+              if (clickedRegion === item.name) {
+                resetFilter();
+              }
+            }}
             sx={{
               position: "absolute",
-              width: "89px",
-              height: "22px",
-              background: `${getRegionColor(item.name)}`,
-              borderRadius: "7px",
+              width: "110px",
+              height: "28px",
+              borderRadius: "20px",
               textTransform: "none",
               fontFamily: "Istok Web",
               fontStyle: "normal",
@@ -49,9 +68,19 @@ const RegionsFilter: React.FC = () => {
               display: "flex",
               alignItems: "center",
               textAlign: "center",
-              color: "#FFFFFF",
+              color:
+                clickedRegion === item.name
+                  ? "#FFFFFF"
+                  : `${getRegionColor(item.name)}`,
+              border: `2px solid ${getRegionColor(item.name)}`,
+              background:
+                clickedRegion === item.name
+                  ? `${getRegionColor(item.name)}`
+                  : "none",
               "&.MuiButtonBase-root:hover": {
                 background: `${getRegionColor(item.name)}`,
+                color: "#FFFFFF",
+                border: `2px solid ${getRegionColor(item.name)}`,
               },
             }}
           >

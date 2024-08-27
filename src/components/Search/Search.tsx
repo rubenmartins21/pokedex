@@ -89,7 +89,6 @@ const Search: React.FC = () => {
               fontSize: "18px",
               lineHeight: "32px",
               color: "#3A2F66",
-
               "& input::placeholder": {
                 fontFamily: "Istok Web",
                 fontStyle: "normal",
@@ -255,7 +254,7 @@ const Search: React.FC = () => {
                   },
                 }}
               >
-                Reset
+                {t("homePage.reset")}
               </Button>
             </Box>
           </Box>

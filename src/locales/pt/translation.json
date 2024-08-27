@@ -3,6 +3,7 @@
     "loadPokemons": "Carregar mais pokemons",
     "namerOrNumber": "Nome ou numero",
     "type": "Tipo",
-    "area": "Região"
+    "area": "Região",
+    "reset": "Resetar"
   }
 }

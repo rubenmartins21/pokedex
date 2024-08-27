@@ -3,16 +3,25 @@ import React, { useEffect, useState } from "react";
 import usePokemon from "../../hooks/usePokemon";
 import { useTranslation } from "react-i18next";
 import { IApiResourceList } from "../../utils/interfaces/Utility/ApiResourceList";
+import { useSelector } from "react-redux";
+import { IPokemonInitialStates } from "../../utils/interfaces/Reducers/PokemonList";
 
 const PokemonTypesFilter: React.FC = () => {
-  const [allTypes, setAllTypes] = useState<IApiResourceList>();
-
   const {
     getAllPokemonsTypes,
     getTranslatedType,
     getTypeConstant,
     handleFilterTypeClick,
+    resetFilter,
   } = usePokemon();
+
+  const [allTypes, setAllTypes] = useState<IApiResourceList>();
+
+  const filter = useSelector(
+    (state: { pokemons: IPokemonInitialStates }) => state.pokemons.filter
+  );
+
+  const [clickedType, setClickedType] = useState<string>(filter?.filterType);
 
   const { i18n } = useTranslation();
   const currentLanguage = i18n.language;
@@ -42,13 +51,19 @@ const PokemonTypesFilter: React.FC = () => {
       {allTypes?.results.map((item, index) => (
         <Grid item xs={4} sm={4} md={4} xl={4} lg={4} key={index}>
           <Button
-            onClick={() => handleFilterTypeClick(item.name)}
+            variant="outlined"
+            onClick={() => {
+              handleFilterTypeClick(item.name);
+              setClickedType(clickedType === item.name ? "" : item.name);
+              if (clickedType === item.name) {
+                resetFilter();
+              }
+            }}
             sx={{
               position: "absolute",
-              width: "89px",
-              height: "22px",
-              background: `${getTypeConstant(item.name)?.color}`,
-              borderRadius: "7px",
+              width: "110px",
+              height: "28px",
+              borderRadius: "20px",
               textTransform: "none",
               fontFamily: "Istok Web",
               fontStyle: "normal",
@@ -58,9 +73,19 @@ const PokemonTypesFilter: React.FC = () => {
               display: "flex",
               alignItems: "center",
               textAlign: "center",
-              color: "#FFFFFF",
+              color:
+                clickedType === item.name
+                  ? "#FFFFFF"
+                  : `${getTypeConstant(item.name)?.color}`,
+              border: `2px solid ${getTypeConstant(item.name)?.color}`,
+              background:
+                clickedType === item.name
+                  ? `${getTypeConstant(item.name)?.color}`
+                  : "none",
               "&.MuiButtonBase-root:hover": {
                 background: `${getTypeConstant(item.name)?.color}`,
+                color: "#FFFFFF",
+                border: `2px solid ${getTypeConstant(item.name)?.color}`,
               },
             }}
           >

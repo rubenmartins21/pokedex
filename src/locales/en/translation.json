@@ -3,6 +3,7 @@
     "loadPokemons": "Load more pokemons",
     "namerOrNumber": "Name or number",
     "type": "Type",
-    "area": "Area"
+    "area": "Area",
+    "reset": "Reset"
   }
 }

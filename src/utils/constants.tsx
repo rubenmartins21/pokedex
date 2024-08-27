@@ -181,7 +181,7 @@ export const regionsColors: IRegionColor[] = [
   {
     id: 6,
     name: "kalos",
-    color: "#E70047",
+    color: "#FFCF30",
     index: {
       firstPokemonId: 650,
       lastPokemonId: 721,
@@ -208,7 +208,7 @@ export const regionsColors: IRegionColor[] = [
   {
     id: 9,
     name: "hisui",
-    color: "#E8553D",
+    color: "#EBC062",
     index: {
       firstPokemonId: 899,
       lastPokemonId: 905,
@@ -217,7 +217,7 @@ export const regionsColors: IRegionColor[] = [
   {
     id: 10,
     name: "paldea",
-    color: "#BE3290",
+    color: "#7736F9",
     index: {
       firstPokemonId: 906,
       lastPokemonId: 1025,

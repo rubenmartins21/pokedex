@@ -1,4 +1,4 @@
 export interface IFilter {
-  filterType: string | null;
+  filterType: string;
   pokemonsCount: number;
 }
