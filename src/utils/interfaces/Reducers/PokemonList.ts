@@ -6,7 +6,7 @@ export interface IPokemonInitialStates {
   allPokemons: IAllPokemons | null;
   searchValue: string;
   isLoading: boolean;
-  filter: IFilter;
+  filter: IFilter | null;
 }
 
 export interface IPokemonListAction {
@@ -15,5 +15,5 @@ export interface IPokemonListAction {
   allPokemons: IAllPokemons | null;
   searchValue: string;
   isLoading: boolean;
-  filter: IFilter;
+  filter: IFilter | null;
 }

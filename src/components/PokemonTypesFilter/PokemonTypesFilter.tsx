@@ -12,16 +12,13 @@ const PokemonTypesFilter: React.FC = () => {
     getTranslatedType,
     getTypeConstant,
     handleFilterTypeClick,
-    resetFilter,
   } = usePokemon();
-
-  const [allTypes, setAllTypes] = useState<IApiResourceList>();
 
   const filter = useSelector(
     (state: { pokemons: IPokemonInitialStates }) => state.pokemons.filter
   );
 
-  const [clickedType, setClickedType] = useState<string>(filter?.filterType);
+  const [allTypes, setAllTypes] = useState<IApiResourceList>();
 
   const { i18n } = useTranslation();
   const currentLanguage = i18n.language;
@@ -54,10 +51,6 @@ const PokemonTypesFilter: React.FC = () => {
             variant="outlined"
             onClick={() => {
               handleFilterTypeClick(item.name);
-              setClickedType(clickedType === item.name ? "" : item.name);
-              if (clickedType === item.name) {
-                resetFilter();
-              }
             }}
             sx={{
               position: "absolute",
@@ -74,12 +67,12 @@ const PokemonTypesFilter: React.FC = () => {
               alignItems: "center",
               textAlign: "center",
               color:
-                clickedType === item.name
+                filter?.filterType === item.name
                   ? "#FFFFFF"
                   : `${getTypeConstant(item.name)?.color}`,
               border: `2px solid ${getTypeConstant(item.name)?.color}`,
               background:
-                clickedType === item.name
+                filter?.filterType === item.name
                   ? `${getTypeConstant(item.name)?.color}`
                   : "none",
               "&.MuiButtonBase-root:hover": {

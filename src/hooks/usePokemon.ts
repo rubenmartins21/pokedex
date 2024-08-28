@@ -433,11 +433,25 @@ const usePokemon = () => {
             dispatch(updatePokemonCardsList(data));
             dispatch(setIsLoading(false));
           }
+
+          if (filter?.filterType === name) {
+            resetFilter();
+          }
         }
       }
     } catch (error) {
       console.error("Error fetching Pokémon data:", error);
     }
+  };
+
+  const resetFilter = async () => {
+    await getPokemons(true);
+
+    const filterData = {
+      filterType: "",
+      pokemonsCount: 20,
+    };
+    dispatch(setIsFiltering(filterData));
   };
 
   const handleFilterTypeClick = async (name: string) => {
@@ -488,11 +502,11 @@ const usePokemon = () => {
         dispatch(updatePokemonCardsList(data));
         dispatch(setIsLoading(false));
       }
-    }
-  };
 
-  const resetFilter = async () => {
-    await getPokemons(true);
+      if (filter?.filterType === name) {
+        resetFilter();
+      }
+    }
   };
 
   return {

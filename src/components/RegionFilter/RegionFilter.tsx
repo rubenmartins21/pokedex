@@ -7,20 +7,12 @@ import { IPokemonInitialStates } from "../../utils/interfaces/Reducers/PokemonLi
 const RegionsFilter: React.FC = () => {
   const [allRegions, setAllRegions] = useState<IApiResourceList>();
 
+  const { getAllRegions, getRegionColor, handleFilterRegionClick } =
+    usePokemon();
+
   const filter = useSelector(
     (state: { pokemons: IPokemonInitialStates }) => state.pokemons.filter
   );
-
-  const [clickedRegion, setClickedRegion] = useState<string>(
-    filter?.filterType
-  );
-
-  const {
-    getAllRegions,
-    getRegionColor,
-    handleFilterRegionClick,
-    resetFilter,
-  } = usePokemon();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,10 +41,6 @@ const RegionsFilter: React.FC = () => {
           <Button
             onClick={() => {
               handleFilterRegionClick(item.name);
-              setClickedRegion(clickedRegion === item.name ? "" : item.name);
-              if (clickedRegion === item.name) {
-                resetFilter();
-              }
             }}
             sx={{
               position: "absolute",
@@ -69,12 +57,12 @@ const RegionsFilter: React.FC = () => {
               alignItems: "center",
               textAlign: "center",
               color:
-                clickedRegion === item.name
+                filter?.filterType === item.name
                   ? "#FFFFFF"
                   : `${getRegionColor(item.name)}`,
               border: `2px solid ${getRegionColor(item.name)}`,
               background:
-                clickedRegion === item.name
+                filter?.filterType === item.name
                   ? `${getRegionColor(item.name)}`
                   : "none",
               "&.MuiButtonBase-root:hover": {
