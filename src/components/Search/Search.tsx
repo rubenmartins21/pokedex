@@ -28,7 +28,12 @@ const Search: React.FC = () => {
     (state: { pokemons: IPokemonInitialStates }) => state.pokemons.allPokemons
   );
 
-  const { getAllPokemons, onSearch, resetFilter } = usePokemon();
+  const filter = useSelector(
+    (state: { pokemons: IPokemonInitialStates }) => state.pokemons.filter
+  );
+
+  const { getAllPokemons, onSearch, resetFilter, getRegionColor } =
+    usePokemon();
 
   const dispatch = useDispatch();
 
@@ -37,6 +42,16 @@ const Search: React.FC = () => {
       getAllPokemons();
     }
   }, [allPokemons]);
+
+  const handleShowFilterArea = () => {
+    setShowFilterArea(!showFilterArea);
+
+    if (filter) {
+      const regionExist = getRegionColor(filter.filterType);
+
+      setFilterSection(regionExist ? "region" : "type");
+    }
+  };
 
   return (
     <>
@@ -126,7 +141,7 @@ const Search: React.FC = () => {
           <IconButton
             sx={{ color: "white" }}
             aria-label="apply filters"
-            onClick={() => setShowFilterArea(!showFilterArea)}
+            onClick={() => handleShowFilterArea()}
           >
             <TuneIcon />
           </IconButton>
