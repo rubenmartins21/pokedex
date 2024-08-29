@@ -161,13 +161,7 @@ const Search: React.FC = () => {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              width: {
-                xs: "80%",
-                sm: "80%",
-                md: "50%",
-                lg: "30%",
-                xl: "30%",
-              },
+              width: "100%",
               marginBottom: "100px",
             }}
           >
@@ -223,7 +217,13 @@ const Search: React.FC = () => {
 
             <Box
               sx={{
-                width: filterSection === "type" ? "70%" : "100%",
+                width: {
+                  xs: "50%",
+                  sm: "50%",
+                  md: "40%",
+                  lg: "40%",
+                  xl: "30%",
+                },
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",

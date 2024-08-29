@@ -36,24 +36,30 @@ const PokemonTypesFilter: React.FC = () => {
   return (
     <Grid
       container
-      spacing={{
-        xs: 5,
-        sm: 5,
-        md: 5,
-        lg: 5,
-        xl: 5,
-      }}
-      columns={{ xs: 12, sm: 12, md: 12, xl: 12, lg: 12 }}
+      spacing={3}
+      columns={12}
+      justifyContent="center"
+      alignItems="center"
     >
       {allTypes?.results.map((item, index) => (
-        <Grid item xs={4} sm={4} md={4} xl={4} lg={4} key={index}>
+        <Grid
+          item
+          xs={4}
+          sm={4}
+          md={4}
+          xl={4}
+          lg={4}
+          key={index}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
           <Button
             variant="outlined"
             onClick={() => {
               handleFilterTypeClick(item.name);
             }}
             sx={{
-              position: "absolute",
               width: "110px",
               height: "28px",
               borderRadius: "20px",
@@ -61,11 +67,17 @@ const PokemonTypesFilter: React.FC = () => {
               fontFamily: "Istok Web",
               fontStyle: "normal",
               fontWeight: 700,
-              fontSize: "15px",
+              fontSize: {
+                xs: "12px",
+                sm: "12px",
+                md: "15px",
+                lg: "15px",
+                xl: "15px",
+              },
               lineHeight: "22px",
               display: "flex",
               alignItems: "center",
-              textAlign: "center",
+              justifyContent: "center",
               color:
                 filter?.filterType === item.name
                   ? "#FFFFFF"

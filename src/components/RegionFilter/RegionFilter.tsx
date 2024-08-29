@@ -35,15 +35,27 @@ const RegionsFilter: React.FC = () => {
         xl: 5,
       }}
       columns={{ xs: 12, sm: 10, md: 10, xl: 10, lg: 10 }}
+      justifyContent="center"
+      alignItems="center"
     >
       {allRegions?.results.map((item, index) => (
-        <Grid item xs={4} sm={2} md={2} xl={2} lg={2} key={index}>
+        <Grid
+          item
+          xs={4}
+          sm={2}
+          md={2}
+          xl={2}
+          lg={2}
+          key={index}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
           <Button
             onClick={() => {
               handleFilterRegionClick(item.name);
             }}
             sx={{
-              position: "absolute",
               width: "110px",
               height: "28px",
               borderRadius: "20px",
@@ -51,10 +63,17 @@ const RegionsFilter: React.FC = () => {
               fontFamily: "Istok Web",
               fontStyle: "normal",
               fontWeight: 700,
-              fontSize: "15px",
+              fontSize: {
+                xs: "12px",
+                sm: "12px",
+                md: "15px",
+                lg: "15px",
+                xl: "15px",
+              },
               lineHeight: "22px",
               display: "flex",
               alignItems: "center",
+              justifyContent: "center",
               textAlign: "center",
               color:
                 filter?.filterType === item.name
