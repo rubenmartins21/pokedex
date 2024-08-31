@@ -60,7 +60,8 @@ const Search: React.FC = () => {
           width: "100%",
           display: "flex",
           justifyContent: "center",
-          marginBottom: "40px",
+          marginTop: "10px",
+          marginBottom: showFilterArea ? "30px" : "60px",
         }}
       >
         <Box
@@ -162,7 +163,7 @@ const Search: React.FC = () => {
               justifyContent: "center",
               alignItems: "center",
               width: "100%",
-              marginBottom: "100px",
+              marginBottom: "5%",
             }}
           >
             <Box
@@ -171,7 +172,7 @@ const Search: React.FC = () => {
                 justifyContent: "space-between",
                 flexDirection: "row",
                 width: "200px",
-                marginBottom: "20px",
+                marginBottom: "2%",
               }}
             >
               <Button
@@ -259,7 +260,6 @@ const Search: React.FC = () => {
                   color: "#726B8F",
                   textTransform: "none",
                   border: "2px solid #726B8F",
-                  marginBottom: "20px",
                   marginTop: "20px",
                   "&:hover": {
                     backgroundColor: "#726B8F",

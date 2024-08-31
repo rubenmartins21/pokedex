@@ -94,7 +94,7 @@ const PokemonCardList: React.FC = () => {
         }}
       >
         {!isLoading && pokemonsCardsList?.results && (
-          <Box sx={{ flexGrow: 1, marginTop: "20px" }}>
+          <Box sx={{ flexGrow: 1, marginTop: "0px" }}>
             <Grid
               container
               spacing={{
@@ -159,7 +159,7 @@ const PokemonCardList: React.FC = () => {
               color: "#726B8F",
               textTransform: "none",
               border: "2px solid #726B8F",
-              marginBottom: "20px",
+              marginBottom: "20%",
               marginTop: "20px",
               "&:hover": {
                 backgroundColor: "#726B8F",
