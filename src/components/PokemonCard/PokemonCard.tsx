@@ -3,7 +3,14 @@ import {
   IAllPokemonsResults,
   IPokemon,
 } from "../../utils/interfaces/Pokemon/Pokemon";
-import { Avatar, Box, CircularProgress, Grid, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  CircularProgress,
+  Grid,
+  Typography,
+} from "@mui/material";
 import usePokemon from "../../hooks/usePokemon";
 import { useTranslation } from "react-i18next";
 
@@ -18,6 +25,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
     getTranslatedType,
     getPokemonPaletteColor,
     getPokemonDominantColor,
+    handleFilterTypeClick,
   } = usePokemon();
 
   const { i18n } = useTranslation();
@@ -296,7 +304,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <Box
+                  <Button
                     sx={{
                       background: `${getTypeConstant(item.type.name)?.color}`,
                       width: "64.46px",
@@ -309,24 +317,26 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
                         xl: "none",
                       },
                       justifyContent: "center",
+                      textTransform: "none",
                       alignItems: "center",
                       borderRadius: 1,
+                      fontFamily: "Istok Web",
+                      fontStyle: "normal",
+                      fontWeight: 400,
+                      fontSize: "12px",
+                      lineHeight: "17px",
+                      textAlign: "center",
+                      color: "#fff",
+                      "&:hover": {
+                        background: `${getTypeConstant(item.type.name)?.color}`,
+                      },
+                    }}
+                    onClick={() => {
+                      handleFilterTypeClick(item.type.name);
                     }}
                   >
-                    <Typography
-                      sx={{
-                        fontFamily: "Istok Web",
-                        fontStyle: "normal",
-                        fontWeight: 400,
-                        fontSize: "12px",
-                        lineHeight: "17px",
-                        textAlign: "center",
-                        color: "#fff",
-                      }}
-                    >
-                      {getTranslatedType(item.type.name, currentLanguage)}
-                    </Typography>
-                  </Box>
+                    {getTranslatedType(item.type.name, currentLanguage)}
+                  </Button>
                 </Grid>
               ))}
             </Grid>
@@ -397,7 +407,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
           >
             {pokemonData.types.map((item, index) => (
               <Grid item xs={6} sm={3} md={2} key={index}>
-                <Box
+                <Button
                   sx={{
                     background: `${getTypeConstant(item.type.name)?.color}`,
                     width: "64.46px",
@@ -412,22 +422,24 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
                     justifyContent: "center",
                     alignItems: "center",
                     borderRadius: 1,
+                    textTransform: "none",
+                    fontFamily: "Istok Web",
+                    fontStyle: "normal",
+                    fontWeight: 400,
+                    fontSize: "12px",
+                    lineHeight: "17px",
+                    textAlign: "center",
+                    color: "#fff",
+                    "&:hover": {
+                      background: `${getTypeConstant(item.type.name)?.color}`,
+                    },
+                  }}
+                  onClick={() => {
+                    handleFilterTypeClick(item.type.name);
                   }}
                 >
-                  <Typography
-                    sx={{
-                      fontFamily: "Istok Web",
-                      fontStyle: "normal",
-                      fontWeight: 400,
-                      fontSize: "12px",
-                      lineHeight: "17px",
-                      textAlign: "center",
-                      color: "#fff",
-                    }}
-                  >
-                    {getTranslatedType(item.type.name, currentLanguage)}
-                  </Typography>
-                </Box>
+                  {getTranslatedType(item.type.name, currentLanguage)}
+                </Button>
               </Grid>
             ))}
           </Grid>
