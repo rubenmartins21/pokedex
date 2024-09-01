@@ -3,6 +3,7 @@ import Layout from "../../components/Layout/Layout";
 import PokemonCardList from "../../components/PokemonCardList/PokemonCardList";
 import { Typography } from "@mui/material";
 import Search from "../../components/Search/Search";
+import GoTopButton from "../../components/GoTopButton/GoTopButton";
 
 const HomePage: React.FC = () => {
   return (
@@ -24,6 +25,7 @@ const HomePage: React.FC = () => {
       </Typography>
       <Search />
       <PokemonCardList />
+      <GoTopButton />
     </Layout>
   );
 };
