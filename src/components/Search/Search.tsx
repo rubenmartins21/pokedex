@@ -60,7 +60,7 @@ const Search: React.FC = () => {
           width: "100%",
           display: "flex",
           justifyContent: "center",
-          marginTop: "10px",
+          marginTop: "30px",
           marginBottom: showFilterArea ? "30px" : "60px",
         }}
       >

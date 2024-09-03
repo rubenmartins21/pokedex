@@ -10,6 +10,7 @@ import {
   ListItemIcon,
   ListItemText,
   useMediaQuery,
+  Typography,
 } from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
 import { useTranslation } from "react-i18next";
@@ -55,17 +56,21 @@ const Header: React.FC = () => {
           justifyContent: "center",
         }}
       >
-        <Avatar
-          alt="pokemon logo"
-          src={"src/assets/pokemon_logo.png"}
+        <Typography
           sx={{
-            width: "30%",
-            height: "30%",
-            marginTop: "10px",
-            borderRadius: "0",
-            alignItems: "center",
+            fontFamily: "Istok Web",
+            fontStyle: "normal",
+            fontWeight: 700,
+            fontSize: "42px",
+            lineHeight: "60px",
+            textAlign: "center",
+            color: "#3A2F66",
+            marginTop: "30px",
+            textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
           }}
-        />
+        >
+          Poképedia
+        </Typography>
       </Box>
     );
   };
@@ -85,19 +90,26 @@ const Header: React.FC = () => {
         >
           <Box
             sx={{
-              marginLeft: "20px",
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            <Avatar
-              alt="pokemon logo"
-              src={"src/assets/pokemon_logo.png"}
+            <Typography
               sx={{
-                width: "100%",
-                height: "100%",
-                borderRadius: "0",
-                alignItems: "center",
+                fontFamily: "Istok Web",
+                fontStyle: "normal",
+                fontWeight: 700,
+                fontSize: "42px",
+                lineHeight: "60px",
+                textAlign: "center",
+                color: "#ffffff",
+                textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
               }}
-            />
+            >
+              Poképedia
+            </Typography>
           </Box>
 
           <Box

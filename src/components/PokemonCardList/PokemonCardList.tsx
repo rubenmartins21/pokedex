@@ -159,7 +159,7 @@ const PokemonCardList: React.FC = () => {
               color: "#726B8F",
               textTransform: "none",
               border: "2px solid #726B8F",
-              marginBottom: "20%",
+              marginBottom: "10%",
               marginTop: "20px",
               "&:hover": {
                 backgroundColor: "#726B8F",

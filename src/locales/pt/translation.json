@@ -5,5 +5,9 @@
     "type": "Tipo",
     "area": "Região",
     "reset": "Resetar"
+  },
+  "footer": {
+    "reservedRights": "Poképedia por Rúben Martins não é afiliada à \"The Pokémon Company\" e não possui ou reivindica quaisquer direitos sobre qualquer marca registrada da Nintendo ou marca registrada Pokémon, e todas as referências a essas marcas são usadas apenas para fins de comentário e informativos.",
+    "copyright": "Direitos Autorais Poképedia © 2024"
   }
 }
