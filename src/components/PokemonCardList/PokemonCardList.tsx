@@ -9,7 +9,9 @@ import { useDispatch } from "react-redux";
 import { setIsLoading } from "../../store/actionCreators";
 
 const PokemonCardList: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const activeLocale = i18n.resolvedLanguage;
 
   const filter = useSelector(
     (state: { pokemons: IPokemonInitialStates }) => state.pokemons.filter
@@ -146,7 +148,7 @@ const PokemonCardList: React.FC = () => {
           <Button
             variant="outlined"
             sx={{
-              width: "281px",
+              width: activeLocale === "en" ? "281px" : "320px",
               height: "51",
               borderRadius: "20px",
               fontFamily: "Istok Web",
