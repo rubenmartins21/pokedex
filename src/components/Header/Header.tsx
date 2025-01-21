@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const Header: React.FC = () => {
   const { i18n } = useTranslation();
@@ -56,21 +57,35 @@ const Header: React.FC = () => {
           justifyContent: "center",
         }}
       >
-        <Typography
-          sx={{
-            fontFamily: "Istok Web",
-            fontStyle: "normal",
-            fontWeight: 700,
-            fontSize: "42px",
-            lineHeight: "60px",
-            textAlign: "center",
-            color: "#3A2F66",
-            marginTop: "30px",
-            textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+        <Link
+          to={"/"}
+          rel="noopener noreferrer"
+          style={{
+            textDecoration: "none",
+            color: "inherit",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100%",
+            width: "100%",
           }}
         >
-          Poképedia
-        </Typography>
+          <Typography
+            sx={{
+              fontFamily: "Istok Web",
+              fontStyle: "normal",
+              fontWeight: 700,
+              fontSize: "42px",
+              lineHeight: "60px",
+              textAlign: "center",
+              color: "#3A2F66",
+              marginTop: "30px",
+              textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+            }}
+          >
+            Poképedia
+          </Typography>
+        </Link>
       </Box>
     );
   };
@@ -96,29 +111,41 @@ const Header: React.FC = () => {
               justifyContent: "center",
             }}
           >
-            <Avatar
-              alt="pokemon logo"
-              src={"src/assets/logo.png"}
-              sx={{
-                width: {
-                  xs: "100%",
-                  sm: "100%",
-                  md: "100%",
-                  xl: "70%",
-                  lg: "70%",
-                },
-
-                height: {
-                  xs: "100%",
-                  sm: "100%",
-                  md: "100%",
-                  xl: "70%",
-                  lg: "70%",
-                },
-
+            <Link
+              to={"/"}
+              rel="noopener noreferrer"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                display: "flex",
                 alignItems: "center",
+                justifyContent: "center",
+                height: "100%",
+                width: "100%",
               }}
-            />
+            >
+              <Avatar
+                alt="pokemon logo"
+                src={"src/assets/logo.png"}
+                sx={{
+                  width: {
+                    xs: "100%",
+                    sm: "100%",
+                    md: "100%",
+                    xl: "70%",
+                    lg: "70%",
+                  },
+
+                  height: {
+                    xs: "100%",
+                    sm: "100%",
+                    md: "100%",
+                    xl: "70%",
+                    lg: "70%",
+                  },
+                }}
+              />
+            </Link>
           </Box>
 
           <Box
@@ -167,7 +194,7 @@ const Header: React.FC = () => {
                       >
                         <ListItemIcon>
                           <Avatar
-                            alt="pokemon logo"
+                            alt="country flag"
                             src={"src/assets/flags/englandFlag.svg"}
                             sx={{
                               width: "50%",
