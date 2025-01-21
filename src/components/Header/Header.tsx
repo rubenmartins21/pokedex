@@ -96,20 +96,29 @@ const Header: React.FC = () => {
               justifyContent: "center",
             }}
           >
-            <Typography
+            <Avatar
+              alt="pokemon logo"
+              src={"src/assets/logo.png"}
               sx={{
-                fontFamily: "Istok Web",
-                fontStyle: "normal",
-                fontWeight: 700,
-                fontSize: "42px",
-                lineHeight: "60px",
-                textAlign: "center",
-                color: "#ffffff",
-                textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                width: {
+                  xs: "100%",
+                  sm: "100%",
+                  md: "100%",
+                  xl: "70%",
+                  lg: "70%",
+                },
+
+                height: {
+                  xs: "100%",
+                  sm: "100%",
+                  md: "100%",
+                  xl: "70%",
+                  lg: "70%",
+                },
+
+                alignItems: "center",
               }}
-            >
-              Poképedia
-            </Typography>
+            />
           </Box>
 
           <Box
