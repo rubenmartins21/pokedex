@@ -9,6 +9,7 @@ import {
   Button,
   CircularProgress,
   Grid,
+  Link,
   Typography,
 } from "@mui/material";
 import usePokemon from "../../hooks/usePokemon";
@@ -128,187 +129,182 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
             },
           }}
         >
-          <Box
-            sx={{
-              width: {
-                xs: "170px",
-                sm: "170px",
-                md: "170px",
-                lg: "197.58px",
-                xl: "197.58px",
-              },
-              height: {
-                xs: "260px",
-                sm: "260px",
-                md: "260px",
-                lg: "194.51px",
-                xl: "194.51px",
-              },
-              borderRadius: "12px",
-              background: cardBackground,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: {
-                xs: "column",
-                sm: "column",
-                md: "column",
-                lg: "row",
-                xl: "row",
-              },
-            }}
+          <Link
+            href={`/pokemon-details/${pokemonData.name}/${pokemonData.id}`}
+            target="_blank"
+            rel="noopener"
+            underline="none"
           >
-            {!imgLoaded && (
-              <Box
-                sx={{
-                  width: "100%",
-                  marginLeft: "20%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <CircularProgress
+            <Box
+              sx={{
+                width: {
+                  xs: "170px",
+                  sm: "170px",
+                  md: "170px",
+                  lg: "197.58px",
+                  xl: "197.58px",
+                },
+                height: {
+                  xs: "260px",
+                  sm: "260px",
+                  md: "260px",
+                  lg: "194.51px",
+                  xl: "194.51px",
+                },
+                borderRadius: "12px",
+                background: cardBackground,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: {
+                  xs: "column",
+                  sm: "column",
+                  md: "column",
+                  lg: "row",
+                  xl: "row",
+                },
+                transition: "transform 0.3s",
+                "&:hover": {
+                  transform: "scale(1.05)",
+                },
+              }}
+            >
+              {!imgLoaded && (
+                <Box
                   sx={{
-                    color: "#726B8F",
+                    width: "100%",
+                    marginLeft: "20%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <CircularProgress
+                    sx={{
+                      color: "#726B8F",
+                    }}
+                  />
+                </Box>
+              )}
+
+              {imgLoaded && (
+                <Avatar
+                  alt="pokemon logo"
+                  src={
+                    pokemonData.sprites.other["official-artwork"].front_default
+                  }
+                  sx={{
+                    borderRadius: "0",
+                    alignItems: "center",
+                    "& img": {
+                      objectFit: {
+                        xs: "contain",
+                        sm: "contain",
+                        md: "contain",
+                        lg: "fill",
+                        xl: "fill",
+                      },
+                    },
+
+                    width: {
+                      xs: "100%",
+                      sm: "100%",
+                      md: "100%",
+                      lg: "100%",
+                      xl: "100%",
+                    },
+                    height: {
+                      xs: "50%",
+                      sm: "50%",
+                      md: "50%",
+                      lg: "100%",
+                      xl: "100%",
+                    },
                   }}
                 />
-              </Box>
-            )}
+              )}
 
-            {imgLoaded && (
-              <Avatar
-                alt="pokemon logo"
-                src={
-                  pokemonData.sprites.other["official-artwork"].front_default
-                }
+              <Box
                 sx={{
-                  borderRadius: "0",
-                  alignItems: "center",
-                  "& img": {
-                    objectFit: {
-                      xs: "contain",
-                      sm: "contain",
-                      md: "contain",
-                      lg: "fill",
-                      xl: "fill",
-                    },
+                  marginTop: "2px",
+                  display: {
+                    xs: "block",
+                    sm: "block",
+                    md: "block",
+                    lg: "none",
+                    xl: "none",
                   },
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontFamily: "Istok Web",
+                    fontStyle: "normal",
+                    fontWeight: 700,
+                    fontSize: "16px",
+                    lineheight: "23px",
 
+                    color: "#FFFFFF",
+                  }}
+                >
+                  n {numberOfDigits(pokemonData.id)}
+                </Typography>
+              </Box>
+
+              <Box
+                sx={{
+                  marginBottom: "5px",
+                  display: {
+                    xs: "block",
+                    sm: "block",
+                    md: "block",
+                    lg: "none",
+                    xl: "none",
+                  },
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontFamily: "Istok Web",
+                    fontStyle: "normal",
+                    fontWeight: 700,
+                    fontSize: "22px",
+                    lineHeight: "32px",
+                    color: "#FFFFFF",
+                  }}
+                >
+                  {pokemonData.name.charAt(0).toUpperCase() +
+                    pokemonData.name.slice(1)}
+                </Typography>
+              </Box>
+              <Grid
+                container
+                spacing={{
+                  xs: 0,
+                  sm: 0,
+                  md: 0,
+                  lg: 9,
+                  xl: 9,
+                }}
+                direction="row"
+                sx={{
                   width: {
-                    xs: "100%",
+                    xs: "90%",
                     sm: "100%",
                     md: "100%",
                     lg: "100%",
                     xl: "100%",
                   },
-                  height: {
-                    xs: "50%",
-                    sm: "50%",
-                    md: "50%",
-                    lg: "100%",
-                    xl: "100%",
-                  },
-                }}
-              />
-            )}
-
-            <Box
-              sx={{
-                marginTop: "2px",
-                display: {
-                  xs: "block",
-                  sm: "block",
-                  md: "block",
-                  lg: "none",
-                  xl: "none",
-                },
-              }}
-            >
-              <Typography
-                sx={{
-                  fontFamily: "Istok Web",
-                  fontStyle: "normal",
-                  fontWeight: 700,
-                  fontSize: "16px",
-                  lineheight: "23px",
-
-                  color: "#FFFFFF",
                 }}
               >
-                n {numberOfDigits(pokemonData.id)}
-              </Typography>
-            </Box>
-
-            <Box
-              sx={{
-                marginBottom: "5px",
-                display: {
-                  xs: "block",
-                  sm: "block",
-                  md: "block",
-                  lg: "none",
-                  xl: "none",
-                },
-              }}
-            >
-              <Typography
-                sx={{
-                  fontFamily: "Istok Web",
-                  fontStyle: "normal",
-                  fontWeight: 700,
-                  fontSize: "22px",
-                  lineHeight: "32px",
-                  color: "#FFFFFF",
-                }}
-              >
-                {pokemonData.name.charAt(0).toUpperCase() +
-                  pokemonData.name.slice(1)}
-              </Typography>
-            </Box>
-            <Grid
-              container
-              spacing={{
-                xs: 0,
-                sm: 0,
-                md: 0,
-                lg: 9,
-                xl: 9,
-              }}
-              direction="row"
-              sx={{
-                width: {
-                  xs: "90%",
-                  sm: "100%",
-                  md: "100%",
-                  lg: "100%",
-                  xl: "100%",
-                },
-              }}
-            >
-              {pokemonData.types.map((item, index) => (
-                <Grid
-                  item
-                  xs={pokemonData.types.length === 1 ? 12 : 6}
-                  sm={pokemonData.types.length === 1 ? 12 : 6}
-                  md={pokemonData.types.length === 1 ? 12 : 6}
-                  key={index}
-                  sx={{
-                    display: {
-                      xs: "flex",
-                      sm: "flex",
-                      md: "flex",
-                      lg: "none",
-                      xl: "none",
-                    },
-                    justifyContent: "center",
-                  }}
-                >
-                  <Button
+                {pokemonData.types.map((item, index) => (
+                  <Grid
+                    item
+                    xs={pokemonData.types.length === 1 ? 12 : 6}
+                    sm={pokemonData.types.length === 1 ? 12 : 6}
+                    md={pokemonData.types.length === 1 ? 12 : 6}
+                    key={index}
                     sx={{
-                      background: `${getTypeConstant(item.type.name)?.color}`,
-                      width: "64.46px",
-                      height: "20.64px",
                       display: {
                         xs: "flex",
                         sm: "flex",
@@ -317,30 +313,48 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
                         xl: "none",
                       },
                       justifyContent: "center",
-                      textTransform: "none",
-                      alignItems: "center",
-                      borderRadius: 1,
-                      fontFamily: "Istok Web",
-                      fontStyle: "normal",
-                      fontWeight: 400,
-                      fontSize: "12px",
-                      lineHeight: "17px",
-                      textAlign: "center",
-                      color: "#fff",
-                      "&:hover": {
-                        background: `${getTypeConstant(item.type.name)?.color}`,
-                      },
-                    }}
-                    onClick={() => {
-                      handleFilterTypeClick(item.type.name);
                     }}
                   >
-                    {getTranslatedType(item.type.name, currentLanguage)}
-                  </Button>
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
+                    <Button
+                      sx={{
+                        background: `${getTypeConstant(item.type.name)?.color}`,
+                        width: "64.46px",
+                        height: "20.64px",
+                        display: {
+                          xs: "flex",
+                          sm: "flex",
+                          md: "flex",
+                          lg: "none",
+                          xl: "none",
+                        },
+                        justifyContent: "center",
+                        textTransform: "none",
+                        alignItems: "center",
+                        borderRadius: 1,
+                        fontFamily: "Istok Web",
+                        fontStyle: "normal",
+                        fontWeight: 400,
+                        fontSize: "12px",
+                        lineHeight: "17px",
+                        textAlign: "center",
+                        color: "#fff",
+                        "&:hover": {
+                          background: `${
+                            getTypeConstant(item.type.name)?.color
+                          }`,
+                        },
+                      }}
+                      onClick={() => {
+                        handleFilterTypeClick(item.type.name);
+                      }}
+                    >
+                      {getTranslatedType(item.type.name, currentLanguage)}
+                    </Button>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
+          </Link>
 
           <Box
             sx={{

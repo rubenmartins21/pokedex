@@ -8,7 +8,7 @@ const App: React.FC = () => {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/pokemon-details" element={<PokemonPage />} />
+        <Route path="/pokemon-details/:name/:id" element={<PokemonPage />} />
       </Routes>
     </Router>
   );
