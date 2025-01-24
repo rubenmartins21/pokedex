@@ -27,6 +27,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
     getPokemonPaletteColor,
     getPokemonDominantColor,
     handleFilterTypeClick,
+    numberOfDigits,
   } = usePokemon();
 
   const { i18n } = useTranslation();
@@ -77,30 +78,6 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
     }
   }, [pokemonData, getPokemonPaletteColor]);
 
-  const numberOfDigits = (n: number) => {
-    let result = 0;
-    const id = n;
-
-    while (n > 0) {
-      n = Math.floor(n / 10);
-      result++;
-    }
-
-    if (result === 1) {
-      return `000${id}`;
-    }
-
-    if (result === 2) {
-      return `00${id}`;
-    }
-    if (result === 3) {
-      return `0${id}`;
-    }
-
-    if (result === 4) {
-      return `${id}`;
-    }
-  };
   return (
     <>
       {pokemonData && (

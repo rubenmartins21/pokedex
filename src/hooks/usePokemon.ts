@@ -102,6 +102,20 @@ const usePokemon = () => {
     }
   };
 
+  const getNextPrevPokemon = async (id: string) => {
+    try {
+      const numberID = Number(id);
+
+      const nextPokemon = await getPokemonById((numberID + 1).toString());
+
+      const prevPokemon = await getPokemonById((numberID - 1).toString());
+
+      return { nextPokemon, prevPokemon };
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const getPokemonsDetails = async (pokemonUrl: string) => {
     const response = await axiosInstance.get(pokemonUrl);
 
@@ -509,6 +523,31 @@ const usePokemon = () => {
     }
   };
 
+  const numberOfDigits = (n: number | undefined) => {
+    let result = 0;
+    const id = n;
+
+    while (n && n > 0) {
+      n = Math.floor(n / 10);
+      result++;
+    }
+
+    if (result === 1) {
+      return `000${id}`;
+    }
+
+    if (result === 2) {
+      return `00${id}`;
+    }
+    if (result === 3) {
+      return `0${id}`;
+    }
+
+    if (result === 4) {
+      return `${id}`;
+    }
+  };
+
   return {
     getAllPokemons,
     getPokemons,
@@ -529,6 +568,8 @@ const usePokemon = () => {
     getRegion,
     handleFilterRegionClick,
     resetFilter,
+    getNextPrevPokemon,
+    numberOfDigits,
   };
 };
 

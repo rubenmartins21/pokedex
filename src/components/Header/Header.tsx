@@ -15,6 +15,7 @@ import {
 import LanguageIcon from "@mui/icons-material/Language";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import logo from "../../assets/logo.png";
 
 const Header: React.FC = () => {
   const { i18n } = useTranslation();
@@ -125,8 +126,8 @@ const Header: React.FC = () => {
               }}
             >
               <Avatar
-                alt="pokemon logo"
-                src={"src/assets/logo.png"}
+                alt="pokepedia logo"
+                src={logo}
                 sx={{
                   width: {
                     xs: "100%",
@@ -194,7 +195,7 @@ const Header: React.FC = () => {
                       >
                         <ListItemIcon>
                           <Avatar
-                            alt="country flag"
+                            alt="england country flag"
                             src={"src/assets/flags/englandFlag.svg"}
                             sx={{
                               width: "50%",
@@ -225,7 +226,7 @@ const Header: React.FC = () => {
                       >
                         <ListItemIcon>
                           <Avatar
-                            alt="pokemon logo"
+                            alt="portuguese country flag"
                             src={"src/assets/flags/portugueseFlag.svg"}
                             sx={{
                               width: "50%",
