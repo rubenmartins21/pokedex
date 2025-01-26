@@ -191,6 +191,8 @@ const usePokemon = () => {
             dominantColor: hexDominantColor,
           },
         ]);
+
+        return true;
       };
     } catch (error) {
       console.error("Error fetching the image:", error);
@@ -570,6 +572,8 @@ const usePokemon = () => {
     resetFilter,
     getNextPrevPokemon,
     numberOfDigits,
+    pokemonColorPaletteExtractor,
+    pokemonPaletteColor,
   };
 };
 
