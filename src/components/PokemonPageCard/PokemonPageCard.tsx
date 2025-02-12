@@ -55,16 +55,16 @@ const PokemonPageCard: React.FC<PokemonPageCardProps> = ({
             sm: "170px",
             md: "170px",
             lg: "197.58px",
-            xl: "197.58px",
+            xl: "508px",
           },
           height: {
             xs: "260px",
             sm: "260px",
             md: "260px",
             lg: "194.51px",
-            xl: "194.51px",
+            xl: "463px",
           },
-          borderRadius: "12px",
+          borderRadius: "32px",
           background: cardBackground,
           display: "flex",
           justifyContent: "center",
@@ -100,7 +100,7 @@ const PokemonPageCard: React.FC<PokemonPageCardProps> = ({
           </Box>
         )}
 
-        {imgLoaded && (
+        {/* {imgLoaded && (
           <Avatar
             alt="pokemon logo"
             src={pokemonData.sprites.other["official-artwork"].front_default}
@@ -133,7 +133,7 @@ const PokemonPageCard: React.FC<PokemonPageCardProps> = ({
               },
             }}
           />
-        )}
+        )} */}
 
         {imgLoaded && (
           <Avatar
@@ -142,6 +142,11 @@ const PokemonPageCard: React.FC<PokemonPageCardProps> = ({
             sx={{
               borderRadius: "0",
               alignItems: "center",
+              boxSizing: "border-box",
+              position: "absolute",
+              width: "445.12px",
+              height: "414.15px",
+              mixBlendMode: "plus-lighter",
               "& img": {
                 objectFit: {
                   xs: "contain",
