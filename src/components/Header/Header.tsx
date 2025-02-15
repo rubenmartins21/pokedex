@@ -16,6 +16,8 @@ import LanguageIcon from "@mui/icons-material/Language";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import englandFlag from "../../assets/flags/englandFlag.svg";
+import portuguseFlag from "../../assets/flags/portugueseFlag.svg";
 
 const Header: React.FC = () => {
   const { i18n } = useTranslation();
@@ -196,7 +198,7 @@ const Header: React.FC = () => {
                         <ListItemIcon>
                           <Avatar
                             alt="england country flag"
-                            src={"src/assets/flags/englandFlag.svg"}
+                            src={englandFlag}
                             sx={{
                               width: "50%",
                               height: "50%",
@@ -227,7 +229,7 @@ const Header: React.FC = () => {
                         <ListItemIcon>
                           <Avatar
                             alt="portuguese country flag"
-                            src={"src/assets/flags/portugueseFlag.svg"}
+                            src={portuguseFlag}
                             sx={{
                               width: "50%",
                               height: "50%",

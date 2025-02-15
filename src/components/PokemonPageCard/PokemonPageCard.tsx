@@ -36,7 +36,6 @@ const PokemonPageCard: React.FC<PokemonPageCardProps> = ({
 
   useEffect(() => {
     if (dominantColor && imgLoaded) {
-      console.log(pokeball);
       setCardBackground(dominantColor);
     }
   }, [dominantColor, imgLoaded]);
@@ -51,18 +50,18 @@ const PokemonPageCard: React.FC<PokemonPageCardProps> = ({
       <Box
         sx={{
           width: {
-            xs: "170px",
-            sm: "170px",
-            md: "170px",
-            lg: "197.58px",
-            xl: "508px",
+            xs: "180px",
+            sm: "180px",
+            md: "260px",
+            lg: "300px",
+            xl: "400px",
           },
           height: {
-            xs: "260px",
-            sm: "260px",
+            xs: "200px",
+            sm: "200px",
             md: "260px",
-            lg: "194.51px",
-            xl: "463px",
+            lg: "300px",
+            xl: "400px",
           },
           borderRadius: "32px",
           background: cardBackground,
@@ -100,7 +99,7 @@ const PokemonPageCard: React.FC<PokemonPageCardProps> = ({
           </Box>
         )}
 
-        {/* {imgLoaded && (
+        {imgLoaded && (
           <Avatar
             alt="pokemon logo"
             src={pokemonData.sprites.other["official-artwork"].front_default}
@@ -117,45 +116,8 @@ const PokemonPageCard: React.FC<PokemonPageCardProps> = ({
                 },
               },
 
-              width: {
-                xs: "100%",
-                sm: "100%",
-                md: "100%",
-                lg: "100%",
-                xl: "100%",
-              },
-              height: {
-                xs: "50%",
-                sm: "50%",
-                md: "50%",
-                lg: "100%",
-                xl: "100%",
-              },
-            }}
-          />
-        )} */}
-
-        {imgLoaded && (
-          <Avatar
-            alt="pokeball logo"
-            src={pokeball}
-            sx={{
-              borderRadius: "0",
-              alignItems: "center",
-              boxSizing: "border-box",
-              position: "absolute",
-              width: "445.12px",
-              height: "414.15px",
-              mixBlendMode: "plus-lighter",
-              "& img": {
-                objectFit: {
-                  xs: "contain",
-                  sm: "contain",
-                  md: "contain",
-                  lg: "fill",
-                  xl: "fill",
-                },
-              },
+              width: "100%",
+              height: "90%",
             }}
           />
         )}

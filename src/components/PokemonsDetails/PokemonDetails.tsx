@@ -51,12 +51,11 @@ const PokemonDetails: React.FC = () => {
     >
       <Grid
         container
-        spacing={3}
         columns={12}
         justifyContent="center"
         alignItems="center"
         sx={{
-          marginTop: "10px",
+          marginTop: "3rem",
           width: "90%",
         }}
       >
