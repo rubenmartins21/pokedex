@@ -17,6 +17,8 @@ import { IPokemonInitialStates } from "../utils/interfaces/Reducers/PokemonList"
 import { useSelector } from "react-redux";
 import { IApiResource } from "../utils/interfaces/Utility/ApiResourceList";
 import { ITypePokemon } from "../utils/interfaces/Pokemon/Type";
+import { IPokemon, IPokemonAbility } from "../utils/interfaces/Pokemon/Pokemon";
+import { IGenus } from "../utils/interfaces/Pokemon/PokemonSpecies";
 
 const usePokemon = () => {
   const filter = useSelector(
@@ -550,6 +552,25 @@ const usePokemon = () => {
     }
   };
 
+  const getPokemonCategory = async (pokemonName: string) => {
+    const response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon-species/${pokemonName}`
+    );
+    const data = await response.json();
+
+    const category = data.genera.find(
+      (g: IGenus) => g.language.name === "en"
+    )?.genus;
+    return category || "Category not found";
+  };
+
+  const getPrimaryAbility = async (pokemonData: IPokemon) => {
+    const primaryAbility = pokemonData.abilities.find(
+      (a: IPokemonAbility) => a.slot === 1
+    )?.ability.name;
+    return primaryAbility || "No primary ability found";
+  };
+
   return {
     getAllPokemons,
     getPokemons,
@@ -574,6 +595,8 @@ const usePokemon = () => {
     numberOfDigits,
     pokemonColorPaletteExtractor,
     pokemonPaletteColor,
+    getPokemonCategory,
+    getPrimaryAbility,
   };
 };
 

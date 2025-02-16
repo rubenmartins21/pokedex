@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import PokemonPageCard from "../PokemonPageCard/PokemonPageCard";
 import usePokemon from "../../hooks/usePokemon";
 import { IPokemon } from "../../utils/interfaces/Pokemon/Pokemon";
+import PokemonGeneralInfo from "../PokemonGeneralInfo/PokemonGeneralInfo";
 
 const PokemonDetails: React.FC = () => {
   const { id } = useParams();
@@ -66,12 +67,16 @@ const PokemonDetails: React.FC = () => {
           justifyContent="left"
           alignItems="center"
         >
-          {pokemonData && dominantColor && (
-            <PokemonPageCard
-              pokemonData={pokemonData}
-              dominantColor={dominantColor}
-            />
-          )}
+          <Box>
+            {pokemonData && dominantColor && (
+              <PokemonPageCard
+                pokemonData={pokemonData}
+                dominantColor={dominantColor}
+              />
+            )}
+
+            {pokemonData && <PokemonGeneralInfo pokemonData={pokemonData} />}
+          </Box>
         </Grid>
 
         <Grid

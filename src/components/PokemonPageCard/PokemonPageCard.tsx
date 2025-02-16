@@ -1,7 +1,6 @@
 import { Avatar, Box, CircularProgress, Link } from "@mui/material";
 import { useEffect, useState } from "react";
 import { IPokemon } from "../../utils/interfaces/Pokemon/Pokemon";
-import pokeball from "../../assets/pokeball_logo.svg";
 
 export interface PokemonPageCardProps {
   pokemonData: IPokemon;
