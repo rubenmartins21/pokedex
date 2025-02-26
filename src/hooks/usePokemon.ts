@@ -19,6 +19,7 @@ import { IApiResource } from "../utils/interfaces/Utility/ApiResourceList";
 import { ITypePokemon } from "../utils/interfaces/Pokemon/Type";
 import { IPokemon, IPokemonAbility } from "../utils/interfaces/Pokemon/Pokemon";
 import { IGenus } from "../utils/interfaces/Pokemon/PokemonSpecies";
+import { useTranslation } from "react-i18next";
 
 const usePokemon = () => {
   const filter = useSelector(
@@ -552,7 +553,10 @@ const usePokemon = () => {
     }
   };
 
-  const getPokemonCategory = async (pokemonName: string) => {
+  const getPokemonSpecies = async (
+    pokemonName: string,
+    activeLocale: string
+  ) => {
     const response = await fetch(
       `https://pokeapi.co/api/v2/pokemon-species/${pokemonName}`
     );
@@ -561,7 +565,10 @@ const usePokemon = () => {
     const category = data.genera.find(
       (g: IGenus) => g.language.name === "en"
     )?.genus;
-    return category || "Category not found";
+
+    const gender = getPokemonGender(data.gender_rate, activeLocale);
+
+    return { category, gender };
   };
 
   const getPrimaryAbility = async (pokemonData: IPokemon) => {
@@ -569,6 +576,25 @@ const usePokemon = () => {
       (a: IPokemonAbility) => a.slot === 1
     )?.ability.name;
     return primaryAbility || "No primary ability found";
+  };
+
+  const getPokemonGender = (genderRate: number, activeLocale: string) => {
+    let gender;
+    if (genderRate === -1) {
+      gender = activeLocale === "en" ? "Genderless" : "Sem género";
+    } else if (genderRate === 0) {
+      gender = activeLocale === "en" ? "100% Male" : "100% Macho";
+    } else if (genderRate === 8) {
+      gender = activeLocale === "en" ? "100% Female" : "100% Fêmea";
+    } else {
+      gender = `${(genderRate / 8) * 100}% ${
+        activeLocale === "en" ? "Female" : "Fêmea"
+      }, ${(1 - genderRate / 8) * 100}% ${
+        activeLocale === "en" ? "Male" : "Macho"
+      }`;
+    }
+
+    return gender;
   };
 
   return {
@@ -595,8 +621,9 @@ const usePokemon = () => {
     numberOfDigits,
     pokemonColorPaletteExtractor,
     pokemonPaletteColor,
-    getPokemonCategory,
+    getPokemonSpecies,
     getPrimaryAbility,
+    getPokemonGender,
   };
 };
 

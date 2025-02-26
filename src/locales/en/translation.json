@@ -9,5 +9,12 @@
   "footer": {
     "reservedRights": "Pokémon characters and names are copyright © The Pokémon Company and/or Nintendo.",
     "copyright": "Copyright © 2024 Poképedia by Rúben Martins. All rights reserved."
+  },
+  "pokemonPage": {
+    "category": "Category",
+    "height": "Height",
+    "weight": "Weight",
+    "ability": "Ability",
+    "gender": "Gender"
   }
 }
